@@ -6,7 +6,7 @@
 /*   By: malaoui <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 15:19:51 by malaoui           #+#    #+#             */
-/*   Updated: 2019/11/13 17:47:17 by malaoui          ###   ########.fr       */
+/*   Updated: 2019/11/13 23:13:04 by malaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,18 +66,23 @@ void		ft_manage(const char *s, int *pos, va_list list)
 		*pos += i + 1;
 		ft_flag_minus(conv, width, precision, list);
 	}
-/*	else if (s[*pos] == '0')
+	else if (s[i] == '0')
 	{
-		*pos += 1;
-		ft_calcul_width_precision(s + *pos, &width, &precision, list);
+		i++;
+		ft_calcul_width_precision(s + i, &width, &precision, list);
+		while ((ft_isdigit(s[i]) || s[i] == 42 || s[i] == '.'))
+			i++;
+		*pos += i + 1;
 		ft_flag_zero(conv, width, precision, list);
 	}
 	else
 	{
-		ft_calcul_width_precision(s + *pos, &width, &precision, list);
+		ft_calcul_width_precision(s + i, &width, &precision, list);
+		while ((ft_isdigit(s[i]) || s[i] == 42 || s[i] == '.'))
+			i++;
+		*pos += i + 1;
 		ft_no_flag(conv, width, precision, list);
 	}
-*/
 }
 
 int			ft_printf(const char *s, ...)

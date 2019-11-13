@@ -6,7 +6,7 @@
 #    By: malaoui <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/06 17:35:50 by malaoui           #+#    #+#              #
-#    Updated: 2019/11/13 16:19:27 by malaoui          ###   ########.fr        #
+#    Updated: 2019/11/13 22:48:40 by malaoui          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,8 @@ NAME = libftprintf.a
 SRC = ft_printf.c\
 	ft_base.c\
 	ft_flag_minus.c\
+	ft_flag_zero.c\
+	ft_no_flag.c
 
 LIB = libft.a
 

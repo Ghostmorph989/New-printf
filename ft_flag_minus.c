@@ -6,7 +6,7 @@
 /*   By: malaoui <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 16:19:58 by malaoui           #+#    #+#             */
-/*   Updated: 2019/11/13 18:42:41 by malaoui          ###   ########.fr       */
+/*   Updated: 2019/11/13 20:55:08 by malaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ int		ft_flag_minus(char conv, int width, int precision, va_list list)
 			}
 			while (i++ < width)
 				ft_putchar_fd(' ', 1);
-		//	free(p);
 			return (i);
 		}
 		else if (conv == 'd' || conv == 'i')
