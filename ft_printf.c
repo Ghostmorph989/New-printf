@@ -6,7 +6,7 @@
 /*   By: malaoui <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 15:19:51 by malaoui           #+#    #+#             */
-/*   Updated: 2019/11/13 23:13:04 by malaoui          ###   ########.fr       */
+/*   Updated: 2019/11/14 11:27:54 by malaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,16 @@ char		ft_search_conv(const char *s)
 		i++;
 	return(s[i]);
 }
-void		ft_manage(const char *s, int *pos, va_list list)
+int			ft_manage(const char *s, int *pos, va_list list)
 {
 	int i;
 	int width;
 	int precision;
 	char conv;
+	int cpt;
 
 	i = 0;
+	cpt = 0;
 	width = 0;
 	precision = 0;
 	conv  = ft_search_conv(s);
@@ -64,7 +66,7 @@ void		ft_manage(const char *s, int *pos, va_list list)
 		while ((ft_isdigit(s[i]) || s[i] == 42 || s[i] == '.'))
 			i++;
 		*pos += i + 1;
-		ft_flag_minus(conv, width, precision, list);
+		cpt = ft_flag_minus(conv, width, precision, list);
 	}
 	else if (s[i] == '0')
 	{
@@ -73,7 +75,7 @@ void		ft_manage(const char *s, int *pos, va_list list)
 		while ((ft_isdigit(s[i]) || s[i] == 42 || s[i] == '.'))
 			i++;
 		*pos += i + 1;
-		ft_flag_zero(conv, width, precision, list);
+		cpt = ft_flag_zero(conv, width, precision, list);
 	}
 	else
 	{
@@ -81,8 +83,9 @@ void		ft_manage(const char *s, int *pos, va_list list)
 		while ((ft_isdigit(s[i]) || s[i] == 42 || s[i] == '.'))
 			i++;
 		*pos += i + 1;
-		ft_no_flag(conv, width, precision, list);
+		cpt = ft_no_flag(conv, width, precision, list);
 	}
+	return (cpt + *pos - 1);
 }
 
 int			ft_printf(const char *s, ...)
@@ -99,7 +102,7 @@ int			ft_printf(const char *s, ...)
 		if (s[i] == '%')
 		{
 			i++;
-			ft_manage((char *)(s + i), &i, list);
+			cpt = ft_manage((char *)(s + i), &i, list);
 		}
 		else
 			ft_putchar_fd(s[i++], 1);

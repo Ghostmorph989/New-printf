@@ -6,7 +6,7 @@
 /*   By: malaoui <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 16:19:58 by malaoui           #+#    #+#             */
-/*   Updated: 2019/11/13 20:55:08 by malaoui          ###   ########.fr       */
+/*   Updated: 2019/11/14 12:09:49 by malaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,29 @@
 int		ft_flag_minus(char conv, int width, int precision, va_list list)
 {
 	int i;
+	int j;
 	char *p;
 
 	i = 0;
+	j = 0;
 	if (conv == 'c' || conv == 'p')
 	{
 		if (conv == 'c')
 		{
 			ft_putchar_fd(va_arg(list, int), 1);
 			width--;
+			j++;
 		}
 		else
 		{
 			p = ft_strjoin("0x", ft_hex(va_arg(list, long long)));
 			ft_putstr_fd(p, 1);
-			width -= ft_strlen(p); 
+			j = ft_strlen(p);
+			width -= j; 
 		}
 		while (i++ < width)
 			ft_putchar_fd(' ', 1);
-		free(p);
-		return (i + ft_strlen(p));
+		return (j + i);
 	}
 	if (conv == 's' || conv == 'd' || conv == 'i' || conv == 'u'
 			|| conv == 'x' || conv == 'X')
@@ -43,15 +46,11 @@ int		ft_flag_minus(char conv, int width, int precision, va_list list)
 		if (conv == 's')
 		{
 			p = ft_strdup(va_arg(list, char *));
-			while (precision-- > 0 && *p)
-			{
-				ft_putchar_fd(*p, 1);
-				i++;
-				p++;
-			}
-			while (i++ < width)
+			while (precision-- > 0 && p[j] != '\0')
+				ft_putchar_fd(p[j++], 1);
+			while (j++ < width)
 				ft_putchar_fd(' ', 1);
-			return (i);
+			return (j - precision + width);
 		}
 		else if (conv == 'd' || conv == 'i')
 		{
@@ -59,15 +58,26 @@ int		ft_flag_minus(char conv, int width, int precision, va_list list)
 			if (p[0] == '-')
 			{
 				ft_putchar_fd('-', 1);
+				j++;
 				p = p + 1;
 			}
 			if (precision > (int)ft_strlen(p))
 				i = precision - ft_strlen(p);
 			while (i-- > 0)
+			{
+				j++;
 				ft_putchar_fd('0', 1);
+			}
 			ft_putstr_fd(p, 1);
-			while (--width > (int )ft_strlen(p))
-				ft_putchar_fd(' ', 1);
+			if (width > precision)
+			{
+				while (width-- > precision)
+				{
+					j++;
+					ft_putchar_fd(' ', 1);
+				}
+			}
+			return (j + ft_strlen(p) - 1);
 		}
 		else if (conv == 'x' || conv == 'X')
 		{
@@ -78,11 +88,18 @@ int		ft_flag_minus(char conv, int width, int precision, va_list list)
 			if (precision > (int)ft_strlen(p))
 				i = precision - ft_strlen(p);
 			while (i-- > 0)
+			{
+				j++;
 				ft_putchar_fd('0', 1);
+			}
 			ft_putstr_fd(p, 1);
 			while (width-- > precision)
+			{
+				j++;
 				ft_putchar_fd(' ', 1);
+			}
+			return (j + ft_strlen(p));
 		}
 	}
-	return (precision);
+	return (0);
 }
