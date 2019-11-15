@@ -6,7 +6,7 @@
 #    By: malaoui <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/06 17:35:50 by malaoui           #+#    #+#              #
-#    Updated: 2019/11/13 22:48:40 by malaoui          ###   ########.fr        #
+#    Updated: 2019/11/15 13:04:37 by malaoui          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,9 +20,10 @@ SRC = ft_printf.c\
 
 LIB = libft.a
 
-FLAGS = -Wall -Werror -Wextra -c
+FLAGS =  -c
 
-GC = gcc
+GC = gcc 
+# -Wall -Werror -Wextra
 
 all: $(NAME)
 
