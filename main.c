@@ -15,19 +15,36 @@
 
 int		main(void)
 {
-	int  i;
-	int j;
-	int a = 1;
+	int	i;
+	int	j;
+	int a = 5614351;
 	//ft_printf("Welcome Back To The War %-*p :)\n", 0, &a);
 	//ft_printf("Welcome Back To The War |%0*d| :)\n", 20, a);
 	//ft_printf("Welcome Back To The War %-*.*X :)\n", 11, 15,  a);
-	i = printf("|%15.0d|\n", a);
-	j = ft_printf("|%15.0d|\n", a);
-	ft_printf("ft_printf : %d || printf : %d\n", j, i);	
-	/*j = printf("|%0*s|\n", 5, a);
-	i = ft_printf("|%0*s|\n",5,a);
-	ft_printf("ft_printf : %d || printf : %d\n", i, j);	
-*/
+	// ft_printf("\t\tTEST 1\t\t\t\t\t\t\t\n");
+	// i = printf("%.2s %02d %015.d %%d %3.2s,\n", "ABC", 100, 546, "gdfgsd");
+	// j = ft_printf("%.2s %02d %015.d %%d %2.2s,\n", "ABC", 100, 546,"gdfgsd");
+	// ft_printf("ft_printf : %d\n printf    : %d\n", j, i);
+
+	ft_printf("\t\tTEST 2\n");
+	j = ft_printf("<%02d>\n", -100);
+	i = printf("<%02d>\n", -100);	
+	ft_printf("ft_printf : %d || printf    : %d\n", j, i);
+
+	// ft_printf("\t\tTEST 3\t\t\t\t\t\t\t\n");
+	// i = printf("|%02d|\n", 100);
+	// j = ft_printf("|%02d|\n", 100);	
+	// ft_printf("ft_printf : %d\nprintf    : %d\n", j, i);
+
+	// ft_printf("\t\tTEST 4\t\t\t\t\t\t\t\n");
+	// i = printf("|%015.d|\n", 546);
+	// j = ft_printf("|%015.d|\n", 546);	
+	// ft_printf("ft_printf : %d\nprintf    : %d\n", j, i);
+
+	// ft_printf("\t\tTEST 5\t\t\t\t\t\t\t\n");
+	// i = printf("|%020u|\n", a);
+	// j = ft_printf("|%020u|\n", a);
+	// ft_printf("ft_printf : %d\nprintf    : %d\n", j, i);
 //	ft_printf("Welcome Tack To The War :)\n");
 //	printf("Welcome Tack To The War :)\n");
 

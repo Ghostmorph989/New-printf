@@ -33,7 +33,7 @@ char	*ft_strrev(char *str)
 	return (str);
 }
 
-int		ft_len(long long nb)
+int		ft_len(unsigned long long nb)
 {
 	int i;
 
@@ -68,7 +68,9 @@ char	*ft_hex(unsigned long long nb)
 
 	i = 0;
 	j = ft_len(nb);
-	str = (char *)malloc(sizeof(char) * (j + 1));
+	str = NULL;
+	if (!(str = (char *)malloc(sizeof(char) * (j + 1))))
+		return (NULL);
 	while (i < j)
 	{
 		temp = nb % 16;
@@ -78,6 +80,11 @@ char	*ft_hex(unsigned long long nb)
 			str[i] = temp + 87;
 		i++;
 		nb /= 16;
+	}
+	if (j == 0)
+	{
+		str[0] = '0';
+		i++;
 	}
 	str[i] = '\0';
 	return (ft_strrev(str));

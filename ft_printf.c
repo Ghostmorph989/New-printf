@@ -18,36 +18,29 @@ int		ft_calcul_width_precision(const char *s, int *width, int *precision, va_lis
 
 	i = 0;
 	if (ft_isdigit(s[i]) || s[i] == 42 || s[i] == '.')
-	{ 
+	{
 		if (s[i] == 42)
 			*width = va_arg(list, int);
 		else
-			*width = ft_atoi(s + i);	
+			*width = ft_atoi(s + i);
 		while ((ft_isdigit(s[i]) || (s[i] == 42)) && (s[i] != '\0'))
 			i++;
 		if (s[i] == '.')
+		{
 			i += 1;
+			*precision = -1;
+		}
 		if (s[i] == 42)
 			*precision = va_arg(list, int);
-		else
-			*precision = ft_atoi(s + i);		
+		else if (ft_isdigit(s[i]))
+			*precision = ft_atoi(s + i);
 		while ((ft_isdigit(s[i]) || (s[i] == 42) || s[i] == '.') &&  (s[i] != '\0'))
 			i++;
 	}
-	// printf("Width :%d || Precision :%d", *width, *precision);
+	//printf("Width :%d || Precision :%d", *width, *precision);
 	return (i);
 }
 
-char		ft_search_conv(const char *s)
-{
-	int  i;
-
-	i = 0;
-	while ((ft_isdigit(s[i]) || s[i] == 42 || s[i] == '.' || 
-				s[i] == '0' || s[i] == '-'))
-		i++;
-	return(s[i]);
-}
 
 int			ft_manage(const char *s, int *pos, va_list list)
 {
@@ -68,51 +61,56 @@ int			ft_manage(const char *s, int *pos, va_list list)
 		i = ft_calcul_width_precision(s + i, &width, &precision, list);
 		*pos += i + 1;
 		//cpt = ft_flag_minus(conv, width, precision, list);
-		return (cpt + *pos - i);
 	}
 	else if (s[i] == '0')
 	{
 		i++;
 		i = ft_calcul_width_precision(s + i, &width, &precision, list);
+		i++;
 		*pos += i + 1;
-		//cpt = ft_flag_zero(conv, width, precision, list);
-		return (cpt + *pos - i);
+		cpt = ft_flag_zero(conv, width, precision, list);
 	}
 	else if (ft_isdigit(s[i]) || s[i] == 42 || s[i] == '.')
 	{
 		i = ft_calcul_width_precision(s + i, &width, &precision, list);
 		*pos += i + 1;
 		cpt = ft_no_flag(conv, width, precision, list);
-		return (cpt + *pos - i - 1);
 	}
 	else
 	{
 		*pos += 1;
-		cpt = ft_no_flag(conv, 0, 0, list);
-		return (cpt + *pos);
+		cpt = ft_manage_simple(conv, list);
 	}
-	return (0);
+	return (cpt);
 }
 
 int			ft_printf(const char *s, ...)
 {
 	int		i;
 	va_list	list;
-	int		cpt;
+	int	cpt;
+	int		j;
 
 	va_start(list, s);
 	i = 0;
 	cpt = 0;
 	while (s[i] != '\0')
 	{
+
+		if (s[i] == '%' && s[i + 1] == '%')
+		{
+			ft_putchar_fd('%', 1);
+			cpt++;
+		}
 		if (s[i] == '%')
 		{
 			i++;
-			cpt = ft_manage((char *)(s + i), &i, list);
+			cpt = cpt + ft_manage((char *)(s + i), &i, list);
 		}
 		else
 			ft_putchar_fd(s[i++], 1);
+		cpt++;
 	}
 	va_end(list);
-	return (cpt);
+	return (cpt - 1);
 }
