@@ -36,6 +36,8 @@ int		ft_calcul_width_precision(const char *s, int *width, int *precision, va_lis
 			*precision = ft_atoi(s + i);
 		while ((ft_isdigit(s[i]) || (s[i] == 42) || s[i] == '.') &&  (s[i] != '\0'))
 			i++;
+		if (*precision < 0)
+			*precision = -1;
 	}
 	//printf("Width :%d || Precision :%d", *width, *precision);
 	return (i);
@@ -59,8 +61,9 @@ int			ft_manage(const char *s, int *pos, va_list list)
 	{
 		i++;
 		i = ft_calcul_width_precision(s + i, &width, &precision, list);
+		i++;
 		*pos += i + 1;
-		//cpt = ft_flag_minus(conv, width, precision, list);
+		cpt = ft_flag_minus(conv, width, precision, list);
 	}
 	else if (s[i] == '0')
 	{
@@ -68,13 +71,25 @@ int			ft_manage(const char *s, int *pos, va_list list)
 		i = ft_calcul_width_precision(s + i, &width, &precision, list);
 		i++;
 		*pos += i + 1;
-		cpt = ft_flag_zero(conv, width, precision, list);
+		if (width < 0)
+		{
+			width *= -1;
+			cpt = ft_flag_minus(conv, width, precision, list);
+		}
+		else
+			cpt = ft_flag_zero(conv, width, precision, list);
 	}
 	else if (ft_isdigit(s[i]) || s[i] == 42 || s[i] == '.')
 	{
 		i = ft_calcul_width_precision(s + i, &width, &precision, list);
 		*pos += i + 1;
-		cpt = ft_no_flag(conv, width, precision, list);
+		if (width < 0)
+		{
+			width *= -1;
+			cpt = ft_flag_minus(conv, width, precision, list);
+		}
+		else
+			cpt = ft_no_flag(conv, width, precision, list);
 	}
 	else
 	{

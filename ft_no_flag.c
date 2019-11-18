@@ -132,8 +132,12 @@ int		ft_manage_norm_di(int width, int precision, va_list list)
 				ft_putchar_fd('0', 1);
 				i++;
 			}
-			ft_putstr_fd(p, 1);
-			return (i + ft_strlen(p));
+			if (ft_atoi(p) != 0)
+			{
+				ft_putstr_fd(p, 1);
+				return (i + ft_strlen(p));
+			}
+			return (i + ft_strlen(p) - 1);
 		}
 }
 

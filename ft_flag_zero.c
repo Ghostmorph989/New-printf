@@ -49,7 +49,9 @@ int		ft_manage_zero_di(int width, int precision, va_list list)
 	int i;
 	int j;
 	int len;
+	int flag;
 
+	flag = 0;
 	j = 0;
 	i = 0;
 	p = ft_itoa(va_arg(list, int));
@@ -57,10 +59,9 @@ int		ft_manage_zero_di(int width, int precision, va_list list)
 	if (p[0] == '-')
 	{
 		ft_putchar_fd('-', 1);
-		p[0] = '0';
 		p = p + 1;
 		i++;
-		width--;
+		flag = -1;
 	}
 	if (precision == 0)
 	{
@@ -84,7 +85,10 @@ int		ft_manage_zero_di(int width, int precision, va_list list)
 		ft_putstr_fd(p, 1);
 	else
 		ft_putchar_fd('0', 1);
-	return (i + len - 1);
+	if (flag < 0)
+		return (i + len - 1);
+	else
+	return (i + len);
 }
 
 int		ft_manage_zero_x(int width, int precision, va_list list)

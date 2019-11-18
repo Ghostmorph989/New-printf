@@ -17,7 +17,7 @@ int		main(void)
 {
 	int	i;
 	int	j;
-	int a = 5614351;
+	int a = -5614351;
 	//ft_printf("Welcome Back To The War %-*p :)\n", 0, &a);
 	//ft_printf("Welcome Back To The War |%0*d| :)\n", 20, a);
 	//ft_printf("Welcome Back To The War %-*.*X :)\n", 11, 15,  a);
@@ -27,8 +27,8 @@ int		main(void)
 	// ft_printf("ft_printf : %d\n printf    : %d\n", j, i);
 
 	ft_printf("\t\tTEST 2\n");
-	j = ft_printf("<%02d>\n", -100);
-	i = printf("<%02d>\n", -100);	
+	j = ft_printf("1<%*.d>\n", -15,0);
+	i = printf("2<%*.d>\n", -15, 0);	
 	ft_printf("ft_printf : %d || printf    : %d\n", j, i);
 
 	// ft_printf("\t\tTEST 3\t\t\t\t\t\t\t\n");
