@@ -12,34 +12,36 @@
 
 #include "libftprintf.h"
 
-int		ft_calcul_width_precision(const char *s, int *width, int *precision, va_list list)
+int		ft_calcul_width_precision(const char *s, t_combo *foo, va_list list)
 {
 	int i;
 
 	i = 0;
+	(foo->precision) = 0;
+	(foo->width) = 0;
 	if (ft_isdigit(s[i]) || s[i] == 42 || s[i] == '.')
 	{
 		if (s[i] == 42)
-			*width = va_arg(list, int);
+			(foo->width) = va_arg(list, int);
 		else
-			*width = ft_atoi(s + i);
+			(foo->width) = ft_atoi(s + i);
 		while ((ft_isdigit(s[i]) || (s[i] == 42)) && (s[i] != '\0'))
 			i++;
 		if (s[i] == '.')
 		{
 			i += 1;
-			*precision = -1;
+			(foo->precision) = 0;
 		}
 		if (s[i] == 42)
-			*precision = va_arg(list, int);
+			(foo->precision) = va_arg(list, int);
 		else if (ft_isdigit(s[i]))
-			*precision = ft_atoi(s + i);
+			(foo->precision) = ft_atoi(s + i);
 		while ((ft_isdigit(s[i]) || (s[i] == 42) || s[i] == '.') &&  (s[i] != '\0'))
 			i++;
-		if (*precision < 0)
-			*precision = -1;
+		if ((foo->precision) < 0)
+			(foo->precision) = -1;
 	}
-	//printf("Width :%d || Precision :%d", *width, *precision);
+	//printf("\nWidth :%d || Precision :%d\n", (foo->width), (foo->precision));
 	return (i);
 }
 
@@ -47,49 +49,47 @@ int		ft_calcul_width_precision(const char *s, int *width, int *precision, va_lis
 int			ft_manage(const char *s, int *pos, va_list list)
 {
 	int i;
-	int width;
-	int precision;
 	char conv;
 	int cpt;
-
+	t_combo foo;
 	i = 0;
 	cpt = 0;
-	width = 0;
-	precision = 0;
 	conv  = ft_search_conv(s);
 	if (s[i] == '-')
 	{
 		i++;
-		i = ft_calcul_width_precision(s + i, &width, &precision, list);
+		i = ft_calcul_width_precision(s + i, &foo, list);
 		i++;
 		*pos += i + 1;
-		cpt = ft_flag_minus(conv, width, precision, list);
+		if (foo.width < 0)
+			foo.width *= -1;
+		cpt = ft_flag_minus(conv, &foo, list);
 	}
 	else if (s[i] == '0')
 	{
 		i++;
-		i = ft_calcul_width_precision(s + i, &width, &precision, list);
+		i = ft_calcul_width_precision(s + i, &foo, list);
 		i++;
 		*pos += i + 1;
-		if (width < 0)
+		if (foo.width < 0)
 		{
-			width *= -1;
-			cpt = ft_flag_minus(conv, width, precision, list);
+			foo.width *= -1;
+			cpt = ft_flag_minus(conv, &foo, list);
 		}
 		else
-			cpt = ft_flag_zero(conv, width, precision, list);
+			cpt = ft_flag_zero(conv, &foo, list);
 	}
 	else if (ft_isdigit(s[i]) || s[i] == 42 || s[i] == '.')
 	{
-		i = ft_calcul_width_precision(s + i, &width, &precision, list);
+		i = ft_calcul_width_precision(s + i, &foo, list);
 		*pos += i + 1;
-		if (width < 0)
+		if (foo.width < 0)
 		{
-			width *= -1;
-			cpt = ft_flag_minus(conv, width, precision, list);
+			foo.width *= -1;
+			cpt = ft_flag_minus(conv, &foo, list);
 		}
 		else
-			cpt = ft_no_flag(conv, width, precision, list);
+			cpt = ft_no_flag(conv, &foo, list);
 	}
 	else
 	{
@@ -115,7 +115,8 @@ int			ft_printf(const char *s, ...)
 		if (s[i] == '%' && s[i + 1] == '%')
 		{
 			ft_putchar_fd('%', 1);
-			cpt++;
+			i += 2;
+			cpt += 2;
 		}
 		if (s[i] == '%')
 		{

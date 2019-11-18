@@ -61,8 +61,8 @@ char	*ft_upper(char *str)
 
 char	*ft_hex(unsigned long long nb)
 {
-	int			i;
-	int			j;
+	size_t			i;
+	size_t			j;
 	char		*str;
 	long long	temp;
 
@@ -78,8 +78,8 @@ char	*ft_hex(unsigned long long nb)
 			str[i] = temp + '0';
 		else
 			str[i] = temp + 87;
-		i++;
 		nb /= 16;
+		i++;
 	}
 	if (j == 0)
 	{

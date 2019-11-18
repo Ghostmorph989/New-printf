@@ -12,12 +12,12 @@
 
 #include "libftprintf.h"
 
-int		ft_manage_norm_c(int width, va_list list)
+int		ft_manage_norm_c(t_combo *foo, va_list list)
 {
 	int i;
 
 	i = 0;
-	while (--width > 0)
+	while (--(foo->width) > 0)
 	{
 		i++;
 		ft_putchar_fd(' ', 1);
@@ -26,7 +26,7 @@ int		ft_manage_norm_c(int width, va_list list)
 	return (i + 1);
 }
 
-int		ft_manage_norm_p(int width, va_list list)
+int		ft_manage_norm_p(t_combo *foo, va_list list)
 {
 	int i;
 	char *p;
@@ -34,7 +34,7 @@ int		ft_manage_norm_p(int width, va_list list)
 	i = 0;
 	p = ft_strjoin("0x", ft_hex(va_arg(list, long long)));
 	i = ft_strlen(p);
-	while (i < width)
+	while (i < (foo->width))
 	{
 		ft_putchar_fd(' ', 1);
 		i++;
@@ -44,7 +44,7 @@ int		ft_manage_norm_p(int width, va_list list)
 	return (i);
 }
 
-int		ft_manage_norm_s(int width, int precision, va_list list)
+int		ft_manage_norm_s(t_combo *foo, va_list list)
 {
 	char *p;
 	int i;
@@ -57,37 +57,42 @@ int		ft_manage_norm_s(int width, int precision, va_list list)
 	if (p == NULL)
 		p = ft_strdup("(null)");
 	len = ft_strlen(p); 
-	if (precision == 0)
+	if ((foo->precision) == 0)
 	{
-		if (width == 0)
+		if ((foo->width) == 0)
 			return (0);
-		while (len < width)
+		while (len < (foo->width))
 		{
 			ft_putchar_fd(' ', 1);
-			precision++;
-			width--;
+			(foo->precision)++;
+			(foo->width)--;
 		}
 		ft_putstr_fd(p, 1);
-		return (precision + len);
+		return ((foo->precision) + len);
 	}
 	else
 	{
-		if (precision > len)
-			precision = len;
+		if ((foo->precision) > len)
+			(foo->precision) = len;
 		else
-			len = precision;
-		while (len < width--)
+			len = (foo->precision);
+		while (len < (foo->width)--)
 		{
 			ft_putchar_fd(' ', 1);
 			i++;
 		}
-		while (j < precision)
-			ft_putchar_fd(p[j++], 1);
+		if ((foo->flag) != 1)
+		{
+			if (len > (foo->precision))
+				ft_putstr_fd(p, 1);
+			while (j < (foo->precision))
+				ft_putchar_fd(p[j++], 1);
+		}
 		return (i + j);
 	}
 }
 
-int		ft_manage_norm_di(int width, int precision, va_list list)
+int		ft_manage_norm_di(t_combo *foo, va_list list)
 {
 	char *p;
 	int i;
@@ -98,50 +103,52 @@ int		ft_manage_norm_di(int width, int precision, va_list list)
 	i = 0;
 	p = ft_itoa(va_arg(list, int));
 	len = ft_strlen(p);
-		if (precision == 0)
+		if ((foo->precision) == 0)
 		{
-			while (width-- > (int )ft_strlen(p))
+			while ((foo->width)-- > len)
 			{
 				ft_putchar_fd(' ', 1);
 				i++;
 			}
-			if (p[0] == '-' && width != 0)
+			if (p[0] == '-' && (foo->width) != 0)
 			{
 				ft_putchar_fd('-', 1);
 				p = p + 1;
-				i++;
 			}
 			ft_putstr_fd(p, 1);
-			return (i + ft_strlen(p));
+			return (i + len);
 		}
 		else
 		{
-			while (--width > precision)
+			if (p[0] == '-')
+				(foo->width)--;
+			while (--(foo->width) >= (foo->precision))
 			{
 				i++;
 				ft_putchar_fd(' ', 1);
 			}
-			if (p[0] == '-' && width != 0)
+			if (p[0] == '-' && (foo->width) != 0)
 			{
 				ft_putchar_fd('-', 1);
-				p[0] = '0';
-				i++;
+				p = p + 1;
 			}
-			while (precision-- > (int )ft_strlen(p))
+			while ((foo->precision) > len)
 			{
 				ft_putchar_fd('0', 1);
 				i++;
+				(foo->precision)--;
 			}
-			if (ft_atoi(p) != 0)
-			{
+			if (ft_atoi(p) != 0 && (foo->precision) != 0)
 				ft_putstr_fd(p, 1);
-				return (i + ft_strlen(p));
+			else if ((foo->precision) > 0)
+			{
+				ft_putchar_fd('0', 1);
 			}
-			return (i + ft_strlen(p) - 1);
+			return (i + len);
 		}
 }
 
-int		ft_manage_norm_x(int width, int precision, va_list list)
+int		ft_manage_norm_x(t_combo *foo, va_list list)
 {
 	char *p;
 	int i;
@@ -152,14 +159,14 @@ int		ft_manage_norm_x(int width, int precision, va_list list)
 	i = 0;
 	p = ft_hex(va_arg(list, long long));
 	len = ft_strlen(p);
-	if (width > precision)
+	if ((foo->width) > (foo->precision))
 		{
-			while (width-- > (int)ft_strlen(p))
+			while ((foo->width)-- > (int)ft_strlen(p))
 			{
 				j++;
 				ft_putchar_fd(' ', 1);
 			}
-			while (precision-- > (int)ft_strlen(p))
+			while ((foo->precision)-- > (int)ft_strlen(p))
 			{
 				j++;
 				ft_putchar_fd('0', 1);
@@ -169,13 +176,13 @@ int		ft_manage_norm_x(int width, int precision, va_list list)
 		}
 		else
 		{
-			i = precision;
-			while (precision-- > (int)ft_strlen(p))
+			i = (foo->precision);
+			while ((foo->precision)-- > (int)ft_strlen(p))
 			{
 				j++;
 				ft_putchar_fd('0', 1);
 			}
-			while (--width > i)
+			while (--(foo->width) > i)
 			{
 				j++;
 				ft_putchar_fd(' ', 1);
@@ -185,7 +192,7 @@ int		ft_manage_norm_x(int width, int precision, va_list list)
 		}
 }
 
-int		ft_manage_norm_X(int width, int precision, va_list list)
+int		ft_manage_norm_X(t_combo *foo, va_list list)
 {
 	char *p;
 	int i;
@@ -196,14 +203,14 @@ int		ft_manage_norm_X(int width, int precision, va_list list)
 	i = 0;
 	p = ft_upper(ft_hex(va_arg(list, long long)));
 	len = ft_strlen(p);
-	if (width > precision)
+	if ((foo->width) > (foo->precision))
 		{
-			while (width-- > (int)ft_strlen(p))
+			while ((foo->width)-- > (int)ft_strlen(p))
 			{
 				j++;
 				ft_putchar_fd(' ', 1);
 			}
-			while (precision-- > (int)ft_strlen(p))
+			while ((foo->precision)-- > (int)ft_strlen(p))
 			{
 				j++;
 				ft_putchar_fd('0', 1);
@@ -213,13 +220,13 @@ int		ft_manage_norm_X(int width, int precision, va_list list)
 		}
 		else
 		{
-			i = precision;
-			while (precision-- > (int)ft_strlen(p))
+			i = (foo->precision);
+			while ((foo->precision)-- > (int)ft_strlen(p))
 			{
 				j++;
 				ft_putchar_fd('0', 1);
 			}
-			while (--width > i)
+			while (--(foo->width) > i)
 			{
 				j++;
 				ft_putchar_fd(' ', 1);
@@ -228,7 +235,7 @@ int		ft_manage_norm_X(int width, int precision, va_list list)
 			return (j + ft_strlen(p));
 		}
 }
-int		ft_manage_norm_u(int width, int precision, va_list list)
+int		ft_manage_norm_u(t_combo *foo, va_list list)
 {
 	char *p;
 	int i;
@@ -239,11 +246,11 @@ int		ft_manage_norm_u(int width, int precision, va_list list)
 	i = 0;
 	p = ft_itoa(va_arg(list, unsigned int));
 	len = ft_strlen(p);
-	if (precision < 0)
-			precision = 0;
-		if (width > precision)
+	if ((foo->precision) < 0)
+			(foo->precision) = 0;
+		if ((foo->width) > (foo->precision))
 		{
-			while (width-- > (int)ft_strlen(p))
+			while ((foo->width)-- > (int)ft_strlen(p))
 			{
 				j++;
 				ft_putchar_fd(' ', 1);
@@ -253,7 +260,7 @@ int		ft_manage_norm_u(int width, int precision, va_list list)
 		}
 		else
 		{
-			while (precision-- > (int)ft_strlen(p))
+			while ((foo->precision)-- > (int)ft_strlen(p))
 			{
 				j++;
 				ft_putchar_fd('0', 1);
@@ -263,21 +270,21 @@ int		ft_manage_norm_u(int width, int precision, va_list list)
 		}
 }
 
-int		ft_no_flag(char conv, int width, int precision, va_list list)
+int		ft_no_flag(char conv, t_combo *foo, va_list list)
 {
 	if (conv == 'c')
-		return (ft_manage_norm_c(width, list));
+		return (ft_manage_norm_c(foo, list));
 	else if (conv == 'p')
-		return (ft_manage_norm_p(width, list));
+		return (ft_manage_norm_p(foo, list));
 	else if (conv == 's')
-		return (ft_manage_norm_s(width, precision, list));
+		return (ft_manage_norm_s(foo, list));
 	else if (conv == 'd' || conv == 'i')
-		return (ft_manage_norm_di(width, precision, list));
+		return (ft_manage_norm_di(foo, list));
 	else if (conv == 'x')
-		return (ft_manage_norm_x(width, precision, list));
+		return (ft_manage_norm_x(foo, list));
 	else if (conv == 'X')
-		return (ft_manage_norm_X(width, precision, list));
+		return (ft_manage_norm_X(foo, list));
 	else if (conv == 'u')
-		return (ft_manage_norm_u(width, precision, list));
+		return (ft_manage_norm_u(foo, list));
 	return (0);
 }

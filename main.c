@@ -13,7 +13,7 @@
 #include "libftprintf.h"
 
 
-int		main(void)
+int		main(int ac, char **argv)
 {
 	int	i;
 	int	j;
@@ -26,10 +26,13 @@ int		main(void)
 	// j = ft_printf("%.2s %02d %015.d %%d %2.2s,\n", "ABC", 100, 546,"gdfgsd");
 	// ft_printf("ft_printf : %d\n printf    : %d\n", j, i);
 
-	ft_printf("\t\tTEST 2\n");
-	j = ft_printf("1<%*.d>\n", -15,0);
-	i = printf("2<%*.d>\n", -15, 0);	
-	ft_printf("ft_printf : %d || printf    : %d\n", j, i);
+	// ft_printf("\t\tTEST 2\n");
+	// j = ft_printf("1<ultimate4 %*.*x %*.*X>\n",  1, 50, 5000, 1,100, 10 - 0x10000000A);
+	// i = printf("2<ultimate4 %*.*x %*.*X>\n",  1, 50, 5000, 1, 1, 0);	
+	// ft_printf("ft_printf : %d || printf    : %d\n", j, i);
+
+	printf("%s\n%x\n",ft_hex(-18446), -18446);
+
 
 	// ft_printf("\t\tTEST 3\t\t\t\t\t\t\t\n");
 	// i = printf("|%02d|\n", 100);
