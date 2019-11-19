@@ -19,6 +19,7 @@ int		ft_calcul_width_precision(const char *s, t_combo *foo, va_list list)
 	i = 0;
 	(foo->precision) = 0;
 	(foo->width) = 0;
+	(foo->flag) = 0;
 	if (ft_isdigit(s[i]) || s[i] == 42 || s[i] == '.')
 	{
 		if (s[i] == 42)
@@ -30,12 +31,18 @@ int		ft_calcul_width_precision(const char *s, t_combo *foo, va_list list)
 		if (s[i] == '.')
 		{
 			i += 1;
-			(foo->precision) = 0;
+			(foo->flag) = 1;
 		}
 		if (s[i] == 42)
 			(foo->precision) = va_arg(list, int);
 		else if (ft_isdigit(s[i]))
+		{
 			(foo->precision) = ft_atoi(s + i);
+			if ((foo->precision) == 0)
+				(foo->flag) = 1;
+			else
+				(foo->flag) = 0;
+		}
 		while ((ft_isdigit(s[i]) || (s[i] == 42) || s[i] == '.') &&  (s[i] != '\0'))
 			i++;
 		if ((foo->precision) < 0)
@@ -108,6 +115,7 @@ int			ft_printf(const char *s, ...)
 
 	va_start(list, s);
 	i = 0;
+	j = 0;
 	cpt = 0;
 	while (s[i] != '\0')
 	{

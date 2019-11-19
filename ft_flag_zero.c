@@ -129,7 +129,7 @@ int		ft_manage_zero_X(t_combo *foo, va_list list)
 	i = 0;
 	p = ft_upper(ft_hex(va_arg(list, long long)));
 	len = ft_strlen(p);
-		while (len < (foo->width))
+	while (len < (foo->width))
 	{
 		ft_putchar_fd('0', 1);
 		i++;

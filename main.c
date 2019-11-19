@@ -13,7 +13,7 @@
 #include "libftprintf.h"
 
 
-int		main(int ac, char **argv)
+int		main(void)
 {
 	int	i;
 	int	j;
@@ -27,12 +27,15 @@ int		main(int ac, char **argv)
 	// ft_printf("ft_printf : %d\n printf    : %d\n", j, i);
 
 	// ft_printf("\t\tTEST 2\n");
-	// j = ft_printf("1<ultimate4 %*.*x %*.*X>\n",  1, 50, 5000, 1,100, 10 - 0x10000000A);
-	// i = printf("2<ultimate4 %*.*x %*.*X>\n",  1, 50, 5000, 1, 1, 0);	
+	// j = ft_printf("1<ultimate4 %*.*x %*.*X>\n", 1, 50, 5000, 10, 7, 0);
+	// i = printf("2<ultimate4 %*.*x %*.*X>\n",  1, 50, 5000, 10, 7, 0);	
 	// ft_printf("ft_printf : %d || printf    : %d\n", j, i);
 
-	printf("%s\n%x\n",ft_hex(-18446), -18446);
+	// printf("%s\n%x\n",ft_hex(-18446), -18446);
 
+	i = printf("a%1.0da\n", 0);
+	j = ft_printf("b%1.0da\n", 0);
+	ft_printf("ft_printf : %d || printf : %d\n", j, i);
 
 	// ft_printf("\t\tTEST 3\t\t\t\t\t\t\t\n");
 	// i = printf("|%02d|\n", 100);
