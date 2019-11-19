@@ -56,7 +56,7 @@ int		ft_manage_norm_s(t_combo *foo, va_list list)
 	p = va_arg(list, char *);
 	if (p != NULL)
 		len = ft_strlen(p); 
-	else if ((foo->flag) == 0)
+	else if (p == NULL)
 	{
 		p = ft_strdup("(null)");
 		len = ft_strlen(p);
@@ -85,25 +85,27 @@ int		ft_manage_norm_s(t_combo *foo, va_list list)
 		}
 		return (i);
 	}
-	else
+	else if ((foo->precision > 0))
 	{
-		if ((foo->precision) > len)
+		if ((foo->precision) > len && (foo->precision) != -1)
 			(foo->precision) = len;
-		else
+		if ((foo->precision) < len && (foo->precision) != -1)
 			len = (foo->precision);
 		while (len < (foo->width)--)
 		{
 			ft_putchar_fd(' ', 1);
 			i++;
 		}
-		if ((foo->flag) != 1)
-		{
-			if (len > (foo->precision) && (foo->flag) == 0)
-				ft_putstr_fd(p, 1);
-			while (j < (foo->precision))
-				ft_putchar_fd(p[j++], 1);
-		}
+		if (len > (foo->precision) && (foo->flag) == 0)
+			ft_putstr_fd(p, 1);
+		while (j < (foo->precision))
+			ft_putchar_fd(p[j++], 1);
 		return (i + j);
+	}
+	else
+	{
+		ft_putstr_fd(p, 1);
+		return (len);
 	}
 }
 
@@ -128,7 +130,7 @@ int		ft_manage_norm_di(t_combo *foo, va_list list)
 				ft_putchar_fd(' ', 1);
 				i++;
 			}
-			if (p[0] == '-' && (foo->width) != 0)
+			if (p[0] == '-')
 			{
 				ft_putchar_fd('-', 1);
 				p = p + 1;

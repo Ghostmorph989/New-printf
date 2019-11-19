@@ -33,8 +33,8 @@ int		main(void)
 
 	// printf("%s\n%x\n",ft_hex(-18446), -18446);
 
-	i = printf("a%1.0da\n", 0);
-	j = ft_printf("b%1.0da\n", 0);
+	i = printf("1<%.*s>\n", -5, "ABC");
+	j = ft_printf("2<%.*s>\n", -5, "ABC");
 	ft_printf("ft_printf : %d || printf : %d\n", j, i);
 
 	// ft_printf("\t\tTEST 3\t\t\t\t\t\t\t\n");
