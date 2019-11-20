@@ -75,11 +75,11 @@ int			ft_manage(const char *s, int *pos, va_list list)
 	if (s[i] == '-' && conv  != '%')
 	{
 		i++;
-		while ((s[i] == '-' || s[i] == '0') && s[j] != '\0')
+		while ((s[i] == '-' || s[i] == '0') && s[i] != '\0')
 			i++;
-		i = ft_calcul_width_precision(s + i, &foo, list);
+		j = ft_calcul_width_precision(s + i, &foo, list) - 1;
 		i++;
-		*pos += i + 1;
+		*pos += i + j + 1;
 		if (foo.width < 0)
 			foo.width *= -1;
 		cpt = ft_flag_minus(conv, &foo, list);
@@ -96,11 +96,11 @@ int			ft_manage(const char *s, int *pos, va_list list)
 		if (s[i] == '-')
 		{
 			j = i++;
-			while ((s[j] == '-' || s[i] == '0') && s[j] != '\0')
-				j++;
-			i = ft_calcul_width_precision(s + j, &foo, list);
+			while ((s[i] == '-' || s[i] == '0') && s[i] != '\0')
+				i++;
+			j = ft_calcul_width_precision(s + j, &foo, list);
 			i++;
-			*pos += i + j;
+			*pos += i + j + 1;
 			if (foo.width < 0)
 				foo.width *= -1;
 			cpt = ft_flag_minus(conv, &foo, list);
@@ -110,7 +110,7 @@ int			ft_manage(const char *s, int *pos, va_list list)
 		{
 			j = ft_calcul_width_precision(s + i, &foo, list);
 			i++;
-			*pos += j + i;
+			*pos += i + j;
 			cpt = ft_flag_zero(conv, &foo, list);
 		}
 	}
@@ -153,6 +153,13 @@ int			ft_manage(const char *s, int *pos, va_list list)
 			*pos += i + 1;
 			foo.cc = 1;
 			cpt = ft_no_flag(conv, &foo, list);
+		}
+		else
+		{
+			ft_putchar_fd('%', 1);
+			i = ft_calcul_width_precision(s + i, &foo, list);
+			cpt = i - 1;
+			*pos += i + 1;
 		}
 	}
 	else if (conv == 'c' || conv == 's' || conv == 'p' || conv == 'x'

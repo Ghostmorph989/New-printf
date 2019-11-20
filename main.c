@@ -38,9 +38,9 @@ int		main(void)
 	// ft_printf("ft_printf : %d || printf : %d\n", j, i);
 
 	ft_printf("\t\tTEST 3\t\t\t\t\t\t\t\n");
-	i = printf("-<%-s>\n", "hey low");
-	j = ft_printf("+<%-s>\n", "hey low");	
-	ft_printf("ft_printf : %d\nprintf    : %d\n", j, i);
+	i = printf("-<%---15d>\n", 15);
+	j = ft_printf("-<%---15d>\n", 15);
+	 ft_printf("ft_printf : %d\nprintf    : %d\n", j, i);
 
 	// ft_printf("\t\tTEST 4\t\t\t\t\t\t\t\n");
 	// i = printf("|%015.d|\n", 546);

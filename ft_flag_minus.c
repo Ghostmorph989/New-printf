@@ -142,11 +142,15 @@ int		ft_manage_minus_di(t_combo *foo, va_list list)
 				ft_putstr_fd(p, 1);
 			else if (((foo->flag) == 1 || (ft_atoi(p) != 0)) && j != 0)
 				i--;
-			if ((foo->width) != 0 && ft_atoi(p) == 0)
-			{
-				ft_putchar_fd(' ', 1);
-				i++;
-			}
+			// if (ft_atoi(p) == 0)
+			// {
+			// 	i--;
+			// }
+			// // if ((foo->width) != 0 && ft_atoi(p) == 0)
+			// // {
+			// // 	ft_putchar_fd(' ', 1);
+			// // 	i++;
+			// // }
 			while (j-- > len)
 			{
 				ft_putchar_fd(' ', 1);
@@ -178,10 +182,12 @@ int		ft_manage_minus_di(t_combo *foo, va_list list)
 				i++;
 				j--;
 			}
-			if ((foo->flag) == 0)
+			if (((foo->flag) == 0) || ((ft_atoi(p) != 0) || (foo->precision != 0)))
 				ft_putstr_fd(p, 1);
-			else if ((foo->precision) > 0)
-				ft_putchar_fd('0', 1);
+			else if (((foo->flag) == 1 || (ft_atoi(p) != 0)) && j != 0)
+				i--;
+			if ((foo->width) != 0 && (foo->flag) == 1 && ft_atoi(p) == 0)
+				ft_putchar_fd(' ', 1);
 			while (--j > (foo->precision))
 			{
 				i++;
