@@ -22,7 +22,10 @@ int		ft_manage_zero_c(t_combo *foo, va_list list)
 		ft_putchar_fd('0', 1);
 		i++;
 	}
-	ft_putchar_fd(va_arg(list, int), 1);
+	if ((foo->cc) != 1)
+		ft_putchar_fd(va_arg(list, int), 1);
+	else
+		ft_putchar_fd('%', 1);
 	return (i + 1);
 }
 

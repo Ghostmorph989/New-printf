@@ -22,7 +22,10 @@ int		ft_manage_norm_c(t_combo *foo, va_list list)
 		i++;
 		ft_putchar_fd(' ', 1);
 	}
-	ft_putchar_fd(va_arg(list, int), 1);
+	if ((foo->cc) != 1)
+		ft_putchar_fd(va_arg(list, int), 1);
+	else
+		ft_putchar_fd('%', 1);
 	return (i + 1);
 }
 
@@ -146,9 +149,11 @@ int		ft_manage_norm_di(t_combo *foo, va_list list)
 		else
 		{
 			j = (foo->width);
+			if ((foo->width) > (foo->precision) && len < (foo->precision))
+				j++;
 			if (p[0] == '-')
 				j--;
-			while (--j >= (foo->precision))
+			while (--j > (foo->precision))
 			{
 				i++;
 				ft_putchar_fd(' ', 1);

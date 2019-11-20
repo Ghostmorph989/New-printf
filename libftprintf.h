@@ -22,6 +22,7 @@ typedef struct s_combo
     int width;
     int precision;
     int flag;
+    int cc;
 } t_combo;
 
 char		*ft_strrev(char *str);

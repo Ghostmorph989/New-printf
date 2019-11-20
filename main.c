@@ -33,14 +33,14 @@ int		main(void)
 
 	// printf("%s\n%x\n",ft_hex(-18446), -18446);
 
-	i = printf("1<%.*s>\n", -5, "ABC");
-	j = ft_printf("2<%.*s>\n", -5, "ABC");
-	ft_printf("ft_printf : %d || printf : %d\n", j, i);
+	// i = printf("1<***************%*s%*d**************%*u*************>\n", 10, "coucou", 10, 10, -50, 20);
+	// j = ft_printf("2<***************%*s%*d**************%*u*************>\n", 10, "coucou", 10, 10, -50, 20);
+	// ft_printf("ft_printf : %d || printf : %d\n", j, i);
 
-	// ft_printf("\t\tTEST 3\t\t\t\t\t\t\t\n");
-	// i = printf("|%02d|\n", 100);
-	// j = ft_printf("|%02d|\n", 100);	
-	// ft_printf("ft_printf : %d\nprintf    : %d\n", j, i);
+	ft_printf("\t\tTEST 3\t\t\t\t\t\t\t\n");
+	i = printf("1%-5%\n");
+	j = ft_printf("2%-5%\n");	
+	ft_printf("ft_printf : %d\nprintf    : %d\n", j, i);
 
 	// ft_printf("\t\tTEST 4\t\t\t\t\t\t\t\n");
 	// i = printf("|%015.d|\n", 546);

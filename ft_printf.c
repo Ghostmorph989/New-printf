@@ -6,7 +6,7 @@
 /*   By: malaoui <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 15:19:51 by malaoui           #+#    #+#             */
-/*   Updated: 2019/11/14 18:07:03 by malaoui          ###   ########.fr       */
+/*   Updated: 2019/11/20 00:09:33 by malaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int		ft_calcul_width_precision(const char *s, t_combo *foo, va_list list)
 	(foo->precision) = 0;
 	(foo->width) = 0;
 	(foo->flag) = 0;
+	(foo->cc) = 0;
 	if (ft_isdigit(s[i]) || s[i] == 42 || s[i] == '.')
 	{
 		if (s[i] == 42)
@@ -34,7 +35,13 @@ int		ft_calcul_width_precision(const char *s, t_combo *foo, va_list list)
 			(foo->flag) = 1;
 		}
 		if (s[i] == 42)
+		{
 			(foo->precision) = va_arg(list, int);
+			if ((foo->precision) == 0)
+				(foo->flag) = 1;
+			else
+				(foo->flag) = 0;
+		}
 		else if (ft_isdigit(s[i]))
 		{
 			(foo->precision) = ft_atoi(s + i);
@@ -59,22 +66,42 @@ int			ft_manage(const char *s, int *pos, va_list list)
 	char conv;
 	int cpt;
 	t_combo foo;
+	int j;
+
 	i = 0;
+	j = 0;
 	cpt = 0;
 	conv  = ft_search_conv(s);
-	if (s[i] == '-')
+	if (s[i] == '-' && conv  != '%')
 	{
+		j = i++;
+		while ((s[j] == '-') && s[j] != '\0')
+			j++;
+		i = ft_calcul_width_precision(s + j, &foo, list);
 		i++;
-		i = ft_calcul_width_precision(s + i, &foo, list);
-		i++;
-		*pos += i + 1;
+		*pos += i + j;
 		if (foo.width < 0)
 			foo.width *= -1;
 		cpt = ft_flag_minus(conv, &foo, list);
 	}
-	else if (s[i] == '0')
+	else if (s[i] == '0' && conv  != '%')
 	{
 		i++;
+		if (s[i] == '-')
+		{
+			j = i++;
+		while ((s[j] == '-') && s[j] != '\0')
+			j++;
+		i = ft_calcul_width_precision(s + j, &foo, list);
+		i++;
+		*pos += i + j;
+		if (foo.width < 0)
+			foo.width *= -1;
+		cpt = ft_flag_minus(conv, &foo, list);
+			return (cpt);
+		}
+		while (s[i] == '0' && s[i] != '\0')
+			i++;
 		i = ft_calcul_width_precision(s + i, &foo, list);
 		i++;
 		*pos += i + 1;
@@ -86,7 +113,7 @@ int			ft_manage(const char *s, int *pos, va_list list)
 		else
 			cpt = ft_flag_zero(conv, &foo, list);
 	}
-	else if (ft_isdigit(s[i]) || s[i] == 42 || s[i] == '.')
+	else if ((ft_isdigit(s[i]) || s[i] == 42 || s[i] == '.') && conv  != '%')
 	{
 		i = ft_calcul_width_precision(s + i, &foo, list);
 		*pos += i + 1;
@@ -97,6 +124,33 @@ int			ft_manage(const char *s, int *pos, va_list list)
 		}
 		else
 			cpt = ft_no_flag(conv, &foo, list);
+	}
+	else if (conv  == '%')
+	{
+		conv = 'c';
+		(foo.cc) = 1;
+		if (s[i] == '-')
+		{
+			i++;
+			i = ft_calcul_width_precision(s + i, &foo, list);
+			i++;
+			*pos += i + 1;
+			cpt = ft_flag_minus(conv, &foo, list);
+		}
+		else if (s[i] == '0')
+		{
+			i++;
+			i = ft_calcul_width_precision(s + i, &foo, list);
+			i++;
+			*pos += i + 1;
+			cpt = ft_flag_zero(conv, &foo, list);
+		}
+		else if (ft_isdigit(s[i]))
+		{
+			i = ft_calcul_width_precision(s + i, &foo, list);
+			*pos += i + 1;
+			cpt = ft_no_flag(conv, &foo, list);
+		}
 	}
 	else
 	{
@@ -119,22 +173,23 @@ int			ft_printf(const char *s, ...)
 	cpt = 0;
 	while (s[i] != '\0')
 	{
-
 		if (s[i] == '%' && s[i + 1] == '%')
 		{
 			ft_putchar_fd('%', 1);
 			i += 2;
-			cpt += 2;
+			cpt += 1;
 		}
-		if (s[i] == '%')
+		else if (s[i] == '%')
 		{
 			i++;
-			cpt = cpt + ft_manage((char *)(s + i), &i, list);
+			cpt += ft_manage((char *)(s + i), &i, list);
 		}
 		else
+		{
 			ft_putchar_fd(s[i++], 1);
-		cpt++;
+			cpt++;
+		}
 	}
 	va_end(list);
-	return (cpt - 1);
+	return (cpt);
 }
