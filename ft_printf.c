@@ -31,7 +31,7 @@ int		ft_calcul_width_precision(const char *s, t_combo *foo, va_list list)
 			i++;
 		if (s[i] == '.')
 		{
-			i += 1;
+			i++;
 			(foo->flag) = 1;
 		}
 		if (s[i] == 42)
@@ -74,12 +74,12 @@ int			ft_manage(const char *s, int *pos, va_list list)
 	conv  = ft_search_conv(s);
 	if (s[i] == '-' && conv  != '%')
 	{
-		j = i++;
-		while ((s[j] == '-') && s[j] != '\0')
-			j++;
-		i = ft_calcul_width_precision(s + j, &foo, list);
 		i++;
-		*pos += i + j;
+		while ((s[i] == '-' || s[i] == '0') && s[j] != '\0')
+			i++;
+		i = ft_calcul_width_precision(s + i, &foo, list);
+		i++;
+		*pos += i + 1;
 		if (foo.width < 0)
 			foo.width *= -1;
 		cpt = ft_flag_minus(conv, &foo, list);
@@ -87,31 +87,34 @@ int			ft_manage(const char *s, int *pos, va_list list)
 	else if (s[i] == '0' && conv  != '%')
 	{
 		i++;
+		while (s[i] == '0' && s[i] != '\0')
+			i++;
 		if (s[i] == '-')
 		{
 			j = i++;
-		while ((s[j] == '-') && s[j] != '\0')
-			j++;
-		i = ft_calcul_width_precision(s + j, &foo, list);
-		i++;
-		*pos += i + j;
-		if (foo.width < 0)
-			foo.width *= -1;
-		cpt = ft_flag_minus(conv, &foo, list);
-			return (cpt);
-		}
-		while (s[i] == '0' && s[i] != '\0')
+			while ((s[j] == '-') && s[j] != '\0')
+				j++;
+			i = ft_calcul_width_precision(s + j, &foo, list);
 			i++;
-		i = ft_calcul_width_precision(s + i, &foo, list);
-		i++;
-		*pos += i + 1;
-		if (foo.width < 0)
-		{
-			foo.width *= -1;
+			*pos += i + j;
+			if (foo.width < 0)
+				foo.width *= -1;
 			cpt = ft_flag_minus(conv, &foo, list);
+				return (cpt);
 		}
 		else
-			cpt = ft_flag_zero(conv, &foo, list);
+		{
+			j = ft_calcul_width_precision(s + i, &foo, list);
+			i++;
+			*pos += j + i;
+			if (foo.width < 0)
+			{
+				foo.width *= -1;
+				cpt = ft_flag_minus(conv, &foo, list);
+			}
+			else
+				cpt = ft_flag_zero(conv, &foo, list);
+		}
 	}
 	else if ((ft_isdigit(s[i]) || s[i] == 42 || s[i] == '.') && conv  != '%')
 	{
@@ -128,13 +131,13 @@ int			ft_manage(const char *s, int *pos, va_list list)
 	else if (conv  == '%')
 	{
 		conv = 'c';
-		(foo.cc) = 1;
 		if (s[i] == '-')
 		{
 			i++;
 			i = ft_calcul_width_precision(s + i, &foo, list);
 			i++;
 			*pos += i + 1;
+			foo.cc = 1;
 			cpt = ft_flag_minus(conv, &foo, list);
 		}
 		else if (s[i] == '0')
@@ -143,20 +146,24 @@ int			ft_manage(const char *s, int *pos, va_list list)
 			i = ft_calcul_width_precision(s + i, &foo, list);
 			i++;
 			*pos += i + 1;
+			foo.cc = 1;
 			cpt = ft_flag_zero(conv, &foo, list);
 		}
 		else if (ft_isdigit(s[i]))
 		{
 			i = ft_calcul_width_precision(s + i, &foo, list);
 			*pos += i + 1;
+			foo.cc = 1;
 			cpt = ft_no_flag(conv, &foo, list);
 		}
 	}
-	else
+	else if (conv == 'c' || conv == 's' || conv == 'p' || conv == 'x'
+	|| conv == 'X' || conv == 'u' || conv == 'd' || conv == 'i')
 	{
 		*pos += 1;
 		cpt = ft_manage_simple(conv, list);
 	}
+
 	return (cpt);
 }
 

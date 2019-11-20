@@ -25,6 +25,7 @@ char		ft_search_conv(const char *s)
 
 int			ft_manage_simple_c(va_list list)
 {
+	
 	ft_putchar_fd(va_arg(list, int), 1);
 	return (1);
 }

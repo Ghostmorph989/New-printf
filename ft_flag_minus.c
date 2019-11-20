@@ -59,30 +59,45 @@ int		ft_manage_minus_s(t_combo *foo, va_list list)
 	j = 0;
 	i = 0;
 	p = va_arg(list, char *);
-	if (p == NULL)
-		p = ft_strdup("(null)");
-	len = ft_strlen(p); 
-	if ((foo->precision) == 0)
+	if (p != NULL)
+		len = ft_strlen(p); 
+	else if (p == NULL)
 	{
-		if ((foo->width) == 0)
-			return (0);
-			ft_putstr_fd(p, 1);
-		while (len < (foo->width))
-		{
-			ft_putchar_fd(' ', 1);
-			(foo->precision)++;
-			(foo->width)--;
-		}
-		return ((foo->precision) + len);
+		p = ft_strdup("(null)");
+		len = ft_strlen(p);
 	}
 	else
+		len = -1;
+	if ((foo->precision) == 0)
 	{
-		if ((foo->precision) == -1)
-			(foo->width)--;
-		if ((foo->precision) > len)
-			(foo->precision) = len;
+		
+		if ((foo->width) == 0)
+			return (0);
+		if ((foo->flag) == 1)
+			j = 0;
 		else
+			j = len;
+		if ((foo->flag) != 1)
+		{
+			i += len;
+			ft_putstr_fd(p, 1);
+		}
+		while (j < (foo->width))
+		{
+			ft_putchar_fd(' ', 1);
+			i++;
+			(foo->width)--;
+		}
+		return (i);
+	}
+	else if ((foo->precision > 0))
+	{
+		if ((foo->precision) > len && (foo->precision) != -1)
+			(foo->precision) = len;
+		if ((foo->precision) < len && (foo->precision) != -1)
 			len = (foo->precision);
+		if (len > (foo->precision) && (foo->flag) == 0)
+			ft_putstr_fd(p, 1);
 		while (j < (foo->precision))
 			ft_putchar_fd(p[j++], 1);
 		while (len < (foo->width)--)
@@ -91,6 +106,16 @@ int		ft_manage_minus_s(t_combo *foo, va_list list)
 			i++;
 		}
 		return (i + j);
+	}
+	else
+	{
+		ft_putstr_fd(p, 1);
+		while ((foo->width)-- > len)
+		{
+			ft_putchar_fd(' ', 1);
+			i++;
+		}
+		return (len + i);
 	}
 }
 
@@ -108,8 +133,6 @@ int		ft_manage_minus_di(t_combo *foo, va_list list)
 		if ((foo->precision) == 0)
 		{
 			j = (foo->width);
-			if (j == 0 && (foo->flag) != 1)
-				return (0);
 			if (p[0] == '-')
 			{
 				ft_putchar_fd('-', 1);
