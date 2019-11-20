@@ -105,19 +105,15 @@ int		ft_manage_zero_x(t_combo *foo, va_list list)
 	i = 0;
 	p = ft_hex(va_arg(list, long long));
 	len = ft_strlen(p);
+	if (!foo->width && !foo->precision)
+		return (0);
 	while (len < (foo->width))
 	{
 		ft_putchar_fd('0', 1);
 		i++;
 		(foo->width)--;
 	}
-	if (ft_atoi(p) != 0)
-		ft_putstr_fd(p, 1);
-	else
-	{
-		ft_putchar_fd('0', 1);
-		i++;
-	}
+	ft_putstr_fd(p, 1);
 	return (i + len);
 }
 
@@ -138,13 +134,14 @@ int		ft_manage_zero_X(t_combo *foo, va_list list)
 		i++;
 		(foo->width)--;
 	}
-	if (ft_atoi(p) != 0)
-			ft_putstr_fd(p, 1);
-	else if (ft_atoi(p) == 0 && (foo->precision) == 0)
+	if (ft_atoi(p) == 0 && len == 1)
 	{
 		ft_putchar_fd('0', 1);
 		i++;
+		len--;
 	}
+	else
+		ft_putstr_fd(p, 1);
 	return (i + len);
 }
 int		ft_manage_zero_u(t_combo *foo, va_list list)
@@ -158,19 +155,13 @@ int		ft_manage_zero_u(t_combo *foo, va_list list)
 	i = 0;
 	p = ft_itoa(va_arg(list, unsigned int));
 	len = ft_strlen(p);
-	while (len < (foo->width))
+	while ((foo->width)-- > (int)ft_strlen(p))
 	{
+		j++;
 		ft_putchar_fd('0', 1);
-		i++;
-		(foo->width)--;
 	}
-	if (ft_atoi(p) != 0)
-		ft_putstr_fd(p, 1);
-	else if (ft_atoi(p) == 0 && (foo->precision) == 0)
-	{	
-		ft_putchar_fd(' ', 1);
-	}
-	return (i + len);
+	ft_putstr_fd(p, 1);
+	return (j + ft_strlen(p));
 }
 
 int		ft_flag_zero(char conv, t_combo *foo, va_list list)

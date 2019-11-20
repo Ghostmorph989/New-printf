@@ -148,12 +148,15 @@ int		ft_manage_norm_di(t_combo *foo, va_list list)
 		}
 		else
 		{
-			j = (foo->width);
-			if ((foo->width) > (foo->precision) && len < (foo->precision))
+			if (len > foo->precision)
+				j = len;
+			else
+				j = foo->precision;
+			// if ((foo->width) > (foo->precision))
+			// 	j++;
+			if (p[0] == '-' && len < foo->precision)
 				j++;
-			if (p[0] == '-')
-				j--;
-			while (--j > (foo->precision))
+			while (foo->width-- > j)
 			{
 				i++;
 				ft_putchar_fd(' ', 1);
@@ -195,35 +198,47 @@ int		ft_manage_norm_x(t_combo *foo, va_list list)
 	i = 0;
 	p = ft_hex(va_arg(list, long long));
 	len = ft_strlen(p);
-	if ((foo->width) > (foo->precision))
+	if ((foo->precision) == 0)
 		{
-			while ((foo->width)-- > (int)ft_strlen(p))
+			if (foo->width == 0)
+				return (0);
+			while ((foo->width)-- > len)
 			{
 				j++;
 				ft_putchar_fd(' ', 1);
 			}
-			while ((foo->precision)-- > (int)ft_strlen(p))
+			while ((foo->precision)-- > len)
 			{
 				j++;
 				ft_putchar_fd('0', 1);
 			}
-			ft_putstr_fd(p, 1);
-			return (j + ft_strlen(p));
+			if (((foo->flag) == 0) || ((ft_atoi(p) != 0)))
+				ft_putstr_fd(p, 1);
+			else if (len == 1 && ft_atoi(p) == 0)
+				ft_putchar_fd(' ', 1);
+			return (j + len);
 		}
 		else
 		{
-			while ((foo->precision)-- > (int)ft_strlen(p))
+			if (len > foo->precision)
+				j = len;
+			else
+				j = foo->precision;
+			while ((foo->width)-- > j)
 			{
-				j++;
-				ft_putchar_fd('0', 1);
-			}
-			while (--(foo->width) > i)
-			{
-				j++;
+				i++;
 				ft_putchar_fd(' ', 1);
 			}
-			ft_putstr_fd(p, 1);
-			return (j + ft_strlen(p));
+			while ((foo->precision)-- > (int)ft_strlen(p))
+			{
+				i++;
+				ft_putchar_fd('0', 1);
+			}
+			if (((foo->flag) == 0) || ((ft_atoi(p) != 0)))
+				ft_putstr_fd(p, 1);
+			else if ((foo->width) != 0 && (foo->flag) == 1 && ft_atoi(p) == 0)
+				ft_putchar_fd(' ', 1);
+			return (i + ft_strlen(p));
 		}
 }
 
@@ -238,8 +253,10 @@ int		ft_manage_norm_X(t_combo *foo, va_list list)
 	i = 0;
 	p = ft_upper(ft_hex(va_arg(list, long)));
 	len = ft_strlen(p);
-	if ((foo->width) < (foo->precision))
+		if ((foo->precision) == 0)
 		{
+			if (foo->width == 0)
+				return (0);
 			while ((foo->width)-- > len)
 			{
 				j++;
@@ -250,23 +267,37 @@ int		ft_manage_norm_X(t_combo *foo, va_list list)
 				j++;
 				ft_putchar_fd('0', 1);
 			}
-			ft_putstr_fd(p, 1);
+			if (((foo->flag) == 0) || ((ft_atoi(p) != 0)))
+				ft_putstr_fd(p, 1);
+			else if ((foo->flag) == 1 && ft_atoi(p) == 0)
+				ft_putchar_fd(' ', 1);
+			if (len == 1 && ft_atoi(p) == 0)
+				len--;
 			return (j + ft_strlen(p));
 		}
 		else
 		{
-			while ((foo->width)-- > (foo->precision))
+			if (len > foo->precision)
+				j = len;
+			else
+				j = foo->precision;
+			while ((foo->width)-- > j)
 			{
-				j++;
+				i++;
 				ft_putchar_fd(' ', 1);
 			}
 			while ((foo->precision)-- > (int)ft_strlen(p))
 			{
-				j++;
+				i++;
 				ft_putchar_fd('0', 1);
 			}
-			ft_putstr_fd(p, 1);
-			return (j + ft_strlen(p) - 1);
+			if (((foo->flag) == 0) || ((ft_atoi(p) != 0)))
+				ft_putstr_fd(p, 1);
+			else if ((foo->width) != 0 && (foo->flag) == 1 && ft_atoi(p) == 0)
+				ft_putchar_fd(' ', 1);
+			if (len == 1 && ft_atoi(p) == 0)
+				len--;
+			return (i + ft_strlen(p));
 		}
 }
 int		ft_manage_norm_u(t_combo *foo, va_list list)
@@ -280,27 +311,47 @@ int		ft_manage_norm_u(t_combo *foo, va_list list)
 	i = 0;
 	p = ft_itoa(va_arg(list, unsigned int));
 	len = ft_strlen(p);
-	if ((foo->precision) < 0)
-			(foo->precision) = 0;
-		if ((foo->width) > (foo->precision))
+	if ((foo->precision) == 0)
 		{
-			while ((foo->width)-- > (int)ft_strlen(p))
+			if (foo->width == 0)
+				return (0);
+			while ((foo->width)-- > len)
 			{
 				j++;
 				ft_putchar_fd(' ', 1);
 			}
-			ft_putstr_fd(p, 1);
-			return (j  + ft_strlen(p));
-		}
-		else
-		{
-			while ((foo->precision)-- > (int)ft_strlen(p))
+			while ((foo->precision)-- > len)
 			{
 				j++;
 				ft_putchar_fd('0', 1);
 			}
-			ft_putstr_fd(p, 1);
+			if (((foo->flag) == 0) || ((ft_atoi(p) != 0)))
+				ft_putstr_fd(p, 1);
+			else if ((foo->flag) == 1 && ft_atoi(p) == 0)
+				ft_putchar_fd(' ', 1);
 			return (j + ft_strlen(p));
+		}
+		else
+		{
+			if (len > foo->precision)
+				j = len;
+			else
+				j = foo->precision;
+			while ((foo->width)-- > j)
+			{
+				i++;
+				ft_putchar_fd(' ', 1);
+			}
+			while ((foo->precision)-- > (int)ft_strlen(p))
+			{
+				i++;
+				ft_putchar_fd('0', 1);
+			}
+			if (((foo->flag) == 0) || ((ft_atoi(p) != 0)))
+				ft_putstr_fd(p, 1);
+			else if ((foo->width) != 0 && (foo->flag) == 1 && ft_atoi(p) == 0)
+				ft_putchar_fd(' ', 1);
+			return (i + ft_strlen(p));
 		}
 }
 
