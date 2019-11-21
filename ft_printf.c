@@ -6,7 +6,7 @@
 /*   By: malaoui <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 15:19:51 by malaoui           #+#    #+#             */
-/*   Updated: 2019/11/21 01:31:20 by malaoui          ###   ########.fr       */
+/*   Updated: 2019/11/21 06:20:43 by malaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,11 +162,13 @@ int			ft_manage(const char *s, int *pos, va_list list)
 			foo.cc = 1;
 			cpt = ft_no_flag(conv, &foo, list);
 		}
-		else
+		else 
 		{
+			if (s[i] == '.' && s[i] != '\0')
+				i++;
 			ft_putchar_fd('%', 1);
 			i = ft_calcul_width_precision(s + i, &foo, list);
-			cpt = i - 1;
+			cpt = i;
 			*pos += i + 1;
 		}
 	}

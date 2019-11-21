@@ -14,6 +14,18 @@ NAME = libftprintf.a
 
 SRC = ft_printf.c\
 	ft_base.c\
+	ft_manage_c.c\
+	ft_manage_s.c\
+	ft_manage_s_extended.c\
+	ft_manage_p.c\
+	ft_manage_di.c\
+	ft_manage_diutils.c\
+	ft_manage_x.c\
+	ft_manage_x_extended.c\
+	ft_manage_xx.c\
+	ft_manage_xxutils.c\
+	ft_manage_u.c\
+	ft_manage_uutils.c\
 	ft_flag_minus.c\
 	ft_flag_zero.c\
 	ft_no_flag.c\
@@ -23,8 +35,7 @@ LIB = libft.a
 
 FLAGS =  -c
 
-GC = gcc 
-# -Wall -Werror -Wextra
+GC = gcc -Wall -Werror -Wextra
 
 all: $(NAME)
 

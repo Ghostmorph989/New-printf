@@ -6,18 +6,17 @@
 /*   By: malaoui <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 16:16:47 by malaoui           #+#    #+#             */
-/*   Updated: 2019/11/13 16:31:24 by malaoui          ###   ########.fr       */
+/*   Updated: 2019/11/21 07:08:14 by malaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "libftprintf.h"
 
-char	*ft_strrev(char *str)
+char			*ft_strrev(char *str)
 {
-	int		i;
-	int		j;
-	char	temp;
+	int			i;
+	int			j;
+	char		temp;
 
 	i = 0;
 	j = 0;
@@ -33,7 +32,7 @@ char	*ft_strrev(char *str)
 	return (str);
 }
 
-int		ft_len(unsigned long long nb)
+int				ft_len(size_t nb)
 {
 	int i;
 
@@ -46,9 +45,9 @@ int		ft_len(unsigned long long nb)
 	return (i);
 }
 
-char	*ft_upper(char *str)
+char			*ft_upper(char *str)
 {
-	int i;
+	int			i;
 
 	i = 0;
 	while (str[i] != '\0')
@@ -59,12 +58,12 @@ char	*ft_upper(char *str)
 	return (str);
 }
 
-char	*ft_hex(unsigned long long nb)
+char			*ft_hex(size_t nb)
 {
-	size_t			i;
-	size_t			j;
+	size_t		i;
+	size_t j;
 	char		*str;
-	long long	temp;
+	size_t	temp;
 
 	i = 0;
 	j = ft_len(nb);
