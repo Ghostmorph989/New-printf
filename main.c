@@ -38,8 +38,8 @@ int		main(void)
 	// ft_printf("ft_printf : %d || printf : %d\n", j, i);
 
 	ft_printf("\t\tTEST 3\t\t\t\t\t\t\t\n");
-	i = printf("-<%---15d>\n", 15);
-	j = ft_printf("-<%---15d>\n", 15);
+	i = printf("%0*i\n", -7, -54);
+	j = ft_printf("%0*i\n", -7, -54);
 	 ft_printf("ft_printf : %d\nprintf    : %d\n", j, i);
 
 	// ft_printf("\t\tTEST 4\t\t\t\t\t\t\t\n");

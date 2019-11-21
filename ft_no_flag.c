@@ -35,7 +35,17 @@ int		ft_manage_norm_p(t_combo *foo, va_list list)
 	char *p;
 
 	i = 0;
-	p = ft_strjoin("0x", ft_hex(va_arg(list, long long)));
+	if (!foo->width && !foo->precision)
+	{
+		p = ft_strdup("0x");
+		ft_putstr_fd(p, 1);
+		free(p);
+		return (ft_strlen(p));
+	}
+	if (foo->flag == 1)
+		p = ft_strdup("0x");
+	else
+		p = ft_strjoin("0x", ft_hex(va_arg(list, long long)));
 	i = ft_strlen(p);
 	while (i < (foo->width))
 	{

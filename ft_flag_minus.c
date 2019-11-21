@@ -146,11 +146,11 @@ int		ft_manage_minus_di(t_combo *foo, va_list list)
 			// {
 			// 	i--;
 			// }
-			// // if ((foo->width) != 0 && ft_atoi(p) == 0)
-			// // {
-			// // 	ft_putchar_fd(' ', 1);
-			// // 	i++;
-			// // }
+			if ((foo->width) != 0 &&  (foo->precision) == 0 && foo->flag == 1 && ft_atoi(p) == 0)
+			{
+				ft_putchar_fd(' ', 1);
+				i++;
+			}
 			while (j-- > len)
 			{
 				ft_putchar_fd(' ', 1);

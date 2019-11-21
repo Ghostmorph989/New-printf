@@ -6,7 +6,7 @@
 /*   By: malaoui <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 15:19:51 by malaoui           #+#    #+#             */
-/*   Updated: 2019/11/20 00:09:33 by malaoui          ###   ########.fr       */
+/*   Updated: 2019/11/21 01:31:20 by malaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ int		ft_calcul_width_precision(const char *s, t_combo *foo, va_list list)
 		if ((foo->precision) < 0)
 			(foo->precision) = -1;
 	}
-	//printf("\nWidth :%d || Precision :%d\n", (foo->width), (foo->precision));
 	return (i);
 }
 
@@ -86,29 +85,31 @@ int			ft_manage(const char *s, int *pos, va_list list)
 	}
 	else if (s[i] == '0' && conv  != '%')
 	{
-		if (foo.width < 0)
-		{
-			foo.width *= -1;
-			cpt = ft_flag_minus(conv, &foo, list);
-		}
 		while (s[i] == '0' && s[i] != '\0')
 			i++;
 		if (s[i] == '-')
 		{
-			j = i++;
-			while ((s[i] == '-' || s[i] == '0') && s[i] != '\0')
+			while ((s[i] == '-') && s[i] != '\0')
 				i++;
-			j = ft_calcul_width_precision(s + j, &foo, list);
+			j = ft_calcul_width_precision(s + i, &foo, list);
 			i++;
-			*pos += i + j + 1;
+			*pos += i + j;
 			if (foo.width < 0)
 				foo.width *= -1;
 			cpt = ft_flag_minus(conv, &foo, list);
-				return (cpt);
+			return (cpt);
 		}
 		else
 		{
 			j = ft_calcul_width_precision(s + i, &foo, list);
+			if (foo.width < 0)
+			{
+				foo.width *= -1;
+				cpt = ft_flag_minus(conv, &foo, list);
+				i++;
+				*pos += i + j;
+				return (cpt);
+			}
 			i++;
 			*pos += i + j;
 			cpt = ft_flag_zero(conv, &foo, list);
