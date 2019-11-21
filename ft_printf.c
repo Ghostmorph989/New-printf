@@ -110,6 +110,13 @@ int			ft_manage(const char *s, int *pos, va_list list)
 				*pos += i + j;
 				return (cpt);
 			}
+			else if (foo.flag == 1 && foo.precision == 0)
+			{
+				cpt = ft_no_flag(conv, &foo, list);
+				i++;
+				*pos += i + j;
+				return (cpt);
+			}
 			i++;
 			*pos += i + j;
 			cpt = ft_flag_zero(conv, &foo, list);
