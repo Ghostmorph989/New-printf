@@ -6,7 +6,7 @@
 /*   By: malaoui <malaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 04:31:48 by malaoui           #+#    #+#             */
-/*   Updated: 2019/11/22 03:55:22 by malaoui          ###   ########.fr       */
+/*   Updated: 2019/11/22 22:55:22 by malaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ static int	ft_checkmpdi(t_combo *foo, char *p, int len)
 	i = 0;
 	j = 0;
 	j = (foo->width);
-	//printf("j : %d  len : %d\n", j, len);
 	if ((foo->precision) < len)
 		(foo->precision)++;
 	if (p[0] == '-')
@@ -91,7 +90,7 @@ static int	ft_checkmpdi(t_combo *foo, char *p, int len)
 		i--;
 	}
 	if (foo->precision == -1)
-		return (i + len );
+		return (i + len);
 	while (--j > (foo->precision))
 	{
 		i++;
@@ -107,7 +106,7 @@ int			ft_manage_minus_di(t_combo *foo, va_list list)
 
 	p = ft_itoa(va_arg(list, int));
 	len = ft_strlen(p);
-	if ((foo->precision) == 0)
+	if ((foo->precision) == 0 || foo->precision == -1)
 		return (ft_checkmdi(foo, p, len));
 	else
 		return (ft_checkmpdi(foo, p, len));

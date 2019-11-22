@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_manage_s.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaoui <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: malaoui <malaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 04:25:25 by malaoui           #+#    #+#             */
-/*   Updated: 2019/11/21 05:31:04 by malaoui          ###   ########.fr       */
+/*   Updated: 2019/11/22 22:49:22 by malaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@ static int	ft_checkminus(t_combo *foo, char *p, int len)
 
 	i = 0;
 	j = 0;
-	if ((foo->width) == 0)
+	if ((foo->width) == 0 && foo->precision == 0)
 		return (0);
+	if (foo->precision == -1)
+		foo->precision = 0;
 	if ((foo->flag) == 1)
 		j = 0;
 	else
@@ -93,7 +95,7 @@ int			ft_manage_minus_s(t_combo *foo, va_list list)
 	}
 	else
 		len = -1;
-	if (foo->precision == 0)
+	if (foo->precision == 0 || foo->precision == -1)
 		return (ft_checkminus(foo, p, len));
 	else if (foo->precision > 0)
 		return (ft_checkminusp(foo, p, len));

@@ -6,7 +6,7 @@
 /*   By: malaoui <malaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 04:28:41 by malaoui           #+#    #+#             */
-/*   Updated: 2019/11/22 17:43:49 by malaoui          ###   ########.fr       */
+/*   Updated: 2019/11/22 23:15:43 by malaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,14 @@ int			ft_manage_minus_p(t_combo *foo, va_list list)
 	int		i;
 	int		len;
 	char	*p;
+	long long l;
 
 	i = 0;
-	if (foo->flag == 1)
+	l = va_arg(list, long long);
+	if (l == 0 && foo->flag == 1)
 		p = ft_strdup("0x");
 	else
-		p = ft_strjoin("0x", ft_hex(va_arg(list, long long)));
+		p = ft_strjoin("0x", ft_hex(l));
 	ft_putstr_fd(p, 1);
 	len = ft_strlen(p);
 	i = ft_strlen(p);
@@ -56,19 +58,21 @@ int			ft_manage_norm_p(t_combo *foo, va_list list)
 {
 	int		i;
 	char	*p;
+	long long l;
 
+	l = va_arg(list, long long);
 	i = 0;
-	if (!foo->width && !foo->precision)
-	{
+	if (l == 0 && foo->flag == 1)
 		p = ft_strdup("0x");
+	else if (!foo->width && !foo->precision)
+	{
+		p = ft_strjoin("0x", ft_hex(l));
 		ft_putstr_fd(p, 1);
 		free(p);
 		return (ft_strlen(p));
 	}
-	if (foo->flag == 1)
-		p = ft_strdup("0x");
 	else
-		p = ft_strjoin("0x", ft_hex(va_arg(list, long long)));
+		p = ft_strjoin("0x", ft_hex(l));
 	i = ft_strlen(p);
 	while (i < (foo->width))
 	{

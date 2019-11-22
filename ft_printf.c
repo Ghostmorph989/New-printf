@@ -6,7 +6,7 @@
 /*   By: malaoui <malaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 15:19:51 by malaoui           #+#    #+#             */
-/*   Updated: 2019/11/22 18:10:07 by malaoui          ###   ########.fr       */
+/*   Updated: 2019/11/22 23:44:56 by malaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int			ft_for_else(char *s, int *pos, t_combo *foo, va_list list)
 	int j;
 
 	j = ft_calcul_width_precision(s, foo, list);
-	*pos += j + 2;
+	*pos += j + 1;
 	if (foo->width < 0)
 	{
 		foo->width *= -1;
@@ -56,7 +56,9 @@ int			ft_for_else(char *s, int *pos, t_combo *foo, va_list list)
 	}
 	else if (foo->flag == 1 && foo->precision == 0)
 		return (ft_no_flag(foo, list));
-	return (ft_flag_zero(foo, list));
+	else
+		return (ft_flag_zero(foo, list));
+	return (0);
 }
 
 int			ft_for_norm(char *s, int *pos, t_combo *foo, va_list list)
@@ -74,51 +76,105 @@ int			ft_for_norm(char *s, int *pos, t_combo *foo, va_list list)
 			return (ft_no_flag(foo, list));
 }
 
+
+int			ft_percent_digit(char *s, int *pos, t_combo *foo, va_list list)
+{
+	int i;
+	int j;
+	int f;
+
+	f = 0;
+	i = 0;
+	j = ft_calcul_width_precision(s + i, foo, list);
+	if (foo->width < 0)
+		foo->width *= -1;
+	if (s[i] == '%')
+	{
+		ft_putchar_fd('%', 1);
+		*pos += i + 1;
+		return (1);
+	}
+	while (++f < foo->width)
+		ft_putchar_fd(' ', 1);
+	ft_putchar_fd('%', 1);
+	*pos += i + j + 1;
+	return (f);
+}
+
 int			ft_percent_minus(char *s, int *pos, t_combo *foo, va_list list)
 {
+	int i;
 	int j;
+	int f;
 
-	j = ft_calcul_width_precision(s, foo, list);
-	*pos += j + 1;
-	foo->cc = 1;
-	return (ft_flag_minus(foo, list));
+	f = 0;
+	i = 0;
+	j = ft_calcul_width_precision(s + i, foo, list);
+	if (foo->width < 0)
+		foo->width *= -1;
+	if (s[i] == '.' && s[i] != '\0')
+		i++;
+	if (s[i] == '%')
+	{
+		ft_putchar_fd('%', 1);
+		*pos += i + 1;
+		return (1);
+	}
+	ft_putchar_fd('%', 1);
+	while (++f < foo->width)
+		ft_putchar_fd(' ', 1);
+	*pos += i + j + 1;
+	return (f);
 }
 
 int			ft_percent_zero(char *s, int *pos, t_combo *foo, va_list list)
 {
+	int i;
 	int j;
+	int f;
 
-	j = ft_calcul_width_precision(s, foo, list);
-	*pos += j + 1;
-	foo->cc = 1;
-	return (ft_flag_zero(foo, list));
-}
-
-int			ft_percent_digit(char *s, int *pos, t_combo *foo, va_list list)
-{
-	int j;
-
-	j = ft_calcul_width_precision(s, foo, list);
-	*pos += j + 1;
-	foo->cc = 1;
-	return (ft_no_flag(foo, list));
+	f = 0;
+	i = 0;
+	j = ft_calcul_width_precision(s + i, foo, list);
+	if (foo->width < 0)
+		return (ft_percent_minus((char *)s + 1, pos, foo, list));
+	if (s[i] == '%')
+	{
+		ft_putchar_fd('%', 1);
+		*pos += i + 1;
+		return (1);
+	}
+	while (++f < foo->width)
+		ft_putchar_fd('0', 1);
+	ft_putchar_fd('%', 1);
+	*pos += i + j + 2;
+	return (f);
 }
 
 int			ft_percent_else(char *s, int *pos, t_combo *foo, va_list list)
 {
 	int i;
 	int j;
+	int f;
 
+	f = 0;
 	i = 0;
-	j = 0;
+	j = ft_calcul_width_precision(s + i, foo, list);
+	if (foo->width < 0)
+		foo->width *= -1;
 	if (s[i] == '.' && s[i] != '\0')
 		i++;
+	if (s[i] == '%')
+	{
+		ft_putchar_fd('%', 1);
+		*pos += i + 1;
+		return (1);
+	}
 	ft_putchar_fd('%', 1);
-	j = ft_calcul_width_precision(s + i, foo, list);
+	while (++f < foo->width)
+		ft_putchar_fd(' ', 1);
 	*pos += i + j;
-	if (foo->flag == 0 && foo->width == 0)
-		j -= 1;
-	return (j);
+	return (f);
 }
 
 int			ft_simple_conv(va_list list, int *pos)
@@ -140,7 +196,10 @@ int			ft_return(char *s, va_list list, int *pos, t_combo *foo)
 		return (ft_for_minus((char *)s + i, list, foo, pos));
 	}
 	else
+	{
+		*pos += i;
 		return (ft_for_else((char *)s + i, pos, foo, list));
+	}
 	return (0);
 }
 int 		ft_percent_return(char *s, int *pos, t_combo *foo, va_list list)
@@ -149,14 +208,14 @@ int 		ft_percent_return(char *s, int *pos, t_combo *foo, va_list list)
 
 	i = 0;
 	conv = 'c';
-		if (s[i] == '-')
-			return (ft_percent_minus((char *)s + 1, pos, foo, list));
-		else if (s[i] == '0')
-			return (ft_percent_zero((char *)s + 1, pos, foo, list));
-		else if (ft_isdigit(s[i]))
-			return (ft_percent_digit((char *)s, pos, foo, list));
-		else
-			return (ft_percent_else((char *)s, pos, foo, list));
+	if (s[i] == '-')
+		return (ft_percent_minus((char *)s + 1, pos, foo, list));
+	else if (s[i] == '0')
+		return (ft_percent_zero((char *)s + 1, pos, foo, list));
+	else if (ft_isdigit(s[i]) || s[i] == 42)
+		return (ft_percent_digit((char *)s, pos, foo, list));
+	else
+		return (ft_percent_else((char *)s, pos, foo, list));
 	return (0);
 }
 

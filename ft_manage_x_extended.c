@@ -6,7 +6,7 @@
 /*   By: malaoui <malaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 05:46:06 by malaoui           #+#    #+#             */
-/*   Updated: 2019/11/22 04:26:55 by malaoui          ###   ########.fr       */
+/*   Updated: 2019/11/22 22:38:01 by malaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	ft_manage_mx(t_combo *foo, char *p, int len)
 		j++;
 		ft_putchar_fd('0', 1);
 	}
-	if (foo->flag == 1 && ft_atoi(p) == 0)
+	if (foo->flag == 1 && p[0] == '0' && len == 1)
 		ft_putchar_fd(' ', 1);
 	else
 		ft_putstr_fd(p, 1);

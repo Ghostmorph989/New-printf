@@ -6,7 +6,7 @@
 /*   By: malaoui <malaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 07:34:47 by malaoui           #+#    #+#             */
-/*   Updated: 2019/11/22 03:39:46 by malaoui          ###   ########.fr       */
+/*   Updated: 2019/11/22 22:57:07 by malaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void		ft_checkz(t_combo *foo, int *i, int len, char *p)
 {
+	if (foo->precision == -1)
+		foo->precision = 0;
 	if ((foo->precision) == 0)
 	{
 		while (len < (foo->width))
@@ -72,7 +74,7 @@ static int	ft_checkndi(t_combo *foo, char *p, int len)
 
 	i = 0;
 	j = (foo->width);
-	if (j == 0 && ft_atoi(p) == 0)
+	if (j == 0 && p[0] == '0' && len == 1 && foo->precision == 0)
 		return (0);
 	while (j-- > len)
 	{
@@ -139,7 +141,7 @@ int			ft_manage_norm_di(t_combo *foo, va_list list)
 	i = 0;
 	p = ft_itoa(va_arg(list, int));
 	len = ft_strlen(p);
-	if ((foo->precision) == 0)
+	if ((foo->precision) == 0 || foo->precision == -1)
 		return (ft_checkndi(foo, p, len));
 	else
 	{

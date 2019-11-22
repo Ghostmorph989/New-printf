@@ -6,7 +6,7 @@
 /*   By: malaoui <malaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 05:23:49 by malaoui           #+#    #+#             */
-/*   Updated: 2019/11/22 17:35:50 by malaoui          ###   ########.fr       */
+/*   Updated: 2019/11/22 22:51:57 by malaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	ft_checknorm(t_combo *foo, char *p, int len)
 
 	i = 0;
 	j = 0;
-	if ((foo->width) == 0)
+	if ((foo->width) == 0 && foo->precision == 0)
 		return (0);
 	if ((foo->flag) == 1)
 		j = 0;
@@ -46,6 +46,8 @@ static int	ft_checknormp(t_combo *foo, char *p, int len)
 
 	i = 0;
 	j = 0;
+	if (foo->precision == -1)
+		foo->precision = 0;
 	if ((foo->precision) > len && (foo->precision) != -1)
 		(foo->precision) = len;
 	if ((foo->precision) < len && (foo->precision) != -1)
@@ -83,7 +85,7 @@ int			ft_manage_norm_s(t_combo *foo, va_list list)
 	}
 	else
 		len = -1;
-	if ((foo->precision) == 0)
+	if ((foo->precision) == 0 || foo->precision == -1)
 		return (ft_checknorm(foo, p, len));
 	else if ((foo->precision > 0))
 		return (ft_checknormp(foo, p, len));
