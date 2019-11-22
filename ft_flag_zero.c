@@ -6,13 +6,15 @@
 /*   By: malaoui <malaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 20:46:45 by malaoui           #+#    #+#             */
-/*   Updated: 2019/11/22 01:03:30 by malaoui          ###   ########.fr       */
+/*   Updated: 2019/11/22 10:44:48 by malaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-static int	ft_redirection(char conv, t_combo *foo, va_list list)
+extern char conv;
+
+static int	ft_redirection(t_combo *foo, va_list list)
 {
 	if (conv == 'c')
 		return (ft_manage_zero_c(foo, list));
@@ -29,10 +31,10 @@ static int	ft_redirection(char conv, t_combo *foo, va_list list)
 	return (0);
 }
 
-int			ft_flag_zero(char conv, t_combo *foo, va_list list)
+int			ft_flag_zero(t_combo *foo, va_list list)
 {
-	if (foo->precision == 0)
-		return (ft_redirection(conv, foo, list));
+	if (foo->precision == 0 || foo->precision == -1)
+		return (ft_redirection(foo, list));
 	else
 	{
 		if (conv == 'c')

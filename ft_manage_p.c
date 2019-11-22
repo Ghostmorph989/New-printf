@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_manage_p.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaoui <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: malaoui <malaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 04:28:41 by malaoui           #+#    #+#             */
-/*   Updated: 2019/11/21 04:52:39 by malaoui          ###   ########.fr       */
+/*   Updated: 2019/11/22 17:43:49 by malaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,13 @@ int			ft_manage_minus_p(t_combo *foo, va_list list)
 	char	*p;
 
 	i = 0;
-	p = ft_strjoin("0x", ft_hex(va_arg(list, long long)));
-	len = ft_strlen(p);
+	if (foo->flag == 1)
+		p = ft_strdup("0x");
+	else
+		p = ft_strjoin("0x", ft_hex(va_arg(list, long long)));
 	ft_putstr_fd(p, 1);
+	len = ft_strlen(p);
+	i = ft_strlen(p);
 	while ((foo->width) > len)
 	{
 		ft_putchar_fd(' ', 1);
@@ -29,7 +33,7 @@ int			ft_manage_minus_p(t_combo *foo, va_list list)
 		i++;
 	}
 	free(p);
-	return (i + len);
+	return (i);
 }
 
 int			ft_manage_zero_p(t_combo *foo, va_list list)

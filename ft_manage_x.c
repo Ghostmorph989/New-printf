@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_manage_x.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaoui <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: malaoui <malaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 04:36:23 by malaoui           #+#    #+#             */
-/*   Updated: 2019/11/21 05:50:54 by malaoui          ###   ########.fr       */
+/*   Updated: 2019/11/22 03:29:46 by malaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,22 @@ static int	ft_manage_mx(t_combo *foo, char *p, int len)
 	int j;
 
 	j = 0;
-	if (foo->width == 0 && foo->flag == 1 && len == 1 && ft_atoi(p) == 0)
+	if (foo->width == 0 && foo->precision == 0 && ft_atoi(p) == 0)
 		return (0);
-	while ((foo->width)-- > len)
-	{
-		j++;
-		ft_putchar_fd(' ', 1);
-	}
 	while ((foo->precision)-- > len)
 	{
 		j++;
 		ft_putchar_fd('0', 1);
 	}
-	if ((foo->flag == 0 && ft_atoi(p) != 0) || (foo->flag == 1))
+	if (foo->flag == 1)
+		ft_putchar_fd(' ', 1);
+	else
 		ft_putstr_fd(p, 1);
+	while ((foo->width)-- > len)
+	{
+		j++;
+		ft_putchar_fd(' ', 1);
+	}
 	return (j + len);
 }
 
@@ -50,10 +52,10 @@ static int	ft_manage_mxp(t_combo *foo, char *p, int len)
 		i++;
 		ft_putchar_fd('0', 1);
 	}
-	if (((foo->flag) == 0) || ((ft_atoi(p) != 0)))
-		ft_putstr_fd(p, 1);
-	else if ((foo->width) != 0 && (foo->flag) == 1 && ft_atoi(p) == 0)
+	if (foo->flag == 1)
 		ft_putchar_fd(' ', 1);
+	else
+		ft_putstr_fd(p, 1);
 	while ((foo->width)-- > j)
 	{
 		i++;

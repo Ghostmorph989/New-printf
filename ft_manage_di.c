@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_manage_di.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaoui <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: malaoui <malaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 04:31:48 by malaoui           #+#    #+#             */
-/*   Updated: 2019/11/21 08:02:09 by malaoui          ###   ########.fr       */
+/*   Updated: 2019/11/22 03:55:22 by malaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ static int	ft_checkmpdi(t_combo *foo, char *p, int len)
 	i = 0;
 	j = 0;
 	j = (foo->width);
+	//printf("j : %d  len : %d\n", j, len);
 	if ((foo->precision) < len)
 		(foo->precision)++;
 	if (p[0] == '-')
@@ -85,7 +86,12 @@ static int	ft_checkmpdi(t_combo *foo, char *p, int len)
 	}
 	ft_checkprint(foo, p, &i, j);
 	if ((foo->width) != 0 && (foo->flag) == 1 && ft_atoi(p) == 0)
+	{
 		ft_putchar_fd(' ', 1);
+		i--;
+	}
+	if (foo->precision == -1)
+		return (i + len );
 	while (--j > (foo->precision))
 	{
 		i++;

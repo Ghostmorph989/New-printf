@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_flag_minus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaoui <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: malaoui <malaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 16:19:58 by malaoui           #+#    #+#             */
-/*   Updated: 2019/11/21 07:12:05 by malaoui          ###   ########.fr       */
+/*   Updated: 2019/11/22 07:19:37 by malaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-int		ft_flag_minus(char conv, t_combo *foo, va_list list)
+extern char conv;
+
+int		ft_flag_minus(t_combo *foo, va_list list)
 {
 	if (conv == 'c')
 		return (ft_manage_minus_c(foo, list));

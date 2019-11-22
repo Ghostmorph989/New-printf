@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libftprintf.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaoui <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: malaoui <malaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 18:04:31 by malaoui           #+#    #+#             */
-/*   Updated: 2019/11/21 07:17:35 by malaoui          ###   ########.fr       */
+/*   Updated: 2019/11/22 08:11:14 by malaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ int				ft_len(size_t nb);
 char			*ft_upper(char *str);
 char			*ft_hex(size_t nb);
 int				ft_printf(const char *s, ...);
-int				ft_flag_minus(char conv, t_combo *foo, va_list list);
-int				ft_flag_zero(char conv, t_combo *foo, va_list list);
-int				ft_no_flag(char conv, t_combo *foo, va_list list);
-int				ft_manage_simple(char conv, va_list list);
+int				ft_flag_minus(t_combo *foo, va_list list);
+int				ft_flag_zero(t_combo *foo, va_list list);
+int				ft_no_flag(t_combo *foo, va_list list);
+int				ft_manage_simple(va_list list);
 char			ft_search_conv(const char *s);
 int				ft_manage_minus_c(t_combo *foo, va_list list);
 int				ft_manage_zero_c(t_combo *foo, va_list list);
@@ -62,4 +62,6 @@ int				ft_manage_minus_u(t_combo *foo, va_list list);
 int				ft_manage_zero_u(t_combo *foo, va_list list);
 int				ft_manage_norm_u(t_combo *foo, va_list list);
 int				ft_manage_simple_u(va_list list);
+int				ft_calcul_width_precision(const char *s, t_combo *foo, va_list list);
+void			ft_init(t_combo *foo);
 #endif

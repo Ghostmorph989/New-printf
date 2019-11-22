@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_manage_simple.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaoui <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: malaoui <malaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 22:27:58 by malaoui           #+#    #+#             */
-/*   Updated: 2019/11/21 07:13:17 by malaoui          ###   ########.fr       */
+/*   Updated: 2019/11/22 07:22:22 by malaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
+
+extern char conv;
 
 char		ft_search_conv(const char *s)
 {
@@ -23,7 +25,7 @@ char		ft_search_conv(const char *s)
 	return (s[i]);
 }
 
-int			ft_manage_simple(char conv, va_list list)
+int			ft_manage_simple(va_list list)
 {
 	if (conv == 'c')
 		return (ft_manage_simple_c(list));

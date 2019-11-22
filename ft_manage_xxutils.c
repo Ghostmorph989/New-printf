@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_manage_xX_extended.c                            :+:      :+:    :+:   */
+/*   ft_manage_xxutils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaoui <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: malaoui <malaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 06:26:02 by malaoui           #+#    #+#             */
-/*   Updated: 2019/11/21 06:37:59 by malaoui          ###   ########.fr       */
+/*   Updated: 2019/11/22 04:37:23 by malaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,19 @@
 
 static int	ft_checkxx(t_combo *foo, char *p, int len)
 {
-	int j;
+		int j;
 
 	j = 0;
-	if (foo->width == 0 && foo->flag == 1 && len == 1 && ft_atoi(p) == 0)
-		return (0);
+	if (foo->width == 0 && len == 1)
+	{
+		if (foo->width == 0 && foo->precision == 0 && p[0] == '0')
+			return (0);
+		else
+		{
+			ft_putstr_fd(p, 1);
+			return (len);
+		}
+	}
 	while ((foo->width)-- > len)
 	{
 		j++;
@@ -29,15 +37,17 @@ static int	ft_checkxx(t_combo *foo, char *p, int len)
 		j++;
 		ft_putchar_fd('0', 1);
 	}
-	if ((foo->flag == 0 && ft_atoi(p) != 0) || (foo->flag == 1))
+	if (foo->flag == 1)
+		ft_putchar_fd(' ', 1);
+	else
 		ft_putstr_fd(p, 1);
 	return (j + len);
 }
 
 static int	ft_checkpxx(t_combo *foo, char *p, int len)
 {
-	int j;
-	int i;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = 0;
@@ -59,7 +69,7 @@ static int	ft_checkpxx(t_combo *foo, char *p, int len)
 		ft_putstr_fd(p, 1);
 	else if ((foo->width) != 0 && (foo->flag) == 1 && ft_atoi(p) == 0)
 		ft_putchar_fd(' ', 1);
-	return (i + len);
+	return (i + ft_strlen(p));
 }
 
 int			ft_manage_norm_xx(t_combo *foo, va_list list)

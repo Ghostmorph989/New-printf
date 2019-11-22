@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: malaoui <marvin@42.fr>                     +#+  +:+       +#+         #
+#    By: malaoui <malaoui@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/06 17:35:50 by malaoui           #+#    #+#              #
-#    Updated: 2019/11/16 22:40:14 by malaoui          ###   ########.fr        #
+#    Updated: 2019/11/22 05:09:51 by malaoui          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,8 @@ SRC = ft_printf.c\
 	ft_flag_minus.c\
 	ft_flag_zero.c\
 	ft_no_flag.c\
-	ft_manage_simple.c
+	ft_manage_simple.c\
+	ft_manage_value.c
 
 LIB = libft.a
 

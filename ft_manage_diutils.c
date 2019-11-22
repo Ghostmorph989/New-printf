@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_manage_diutils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaoui <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: malaoui <malaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 07:34:47 by malaoui           #+#    #+#             */
-/*   Updated: 2019/11/21 07:51:33 by malaoui          ###   ########.fr       */
+/*   Updated: 2019/11/22 03:39:46 by malaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static int	ft_checkndi(t_combo *foo, char *p, int len)
 
 	i = 0;
 	j = (foo->width);
-	if (j == 0 && (foo->flag) != 1)
+	if (j == 0 && ft_atoi(p) == 0)
 		return (0);
 	while (j-- > len)
 	{

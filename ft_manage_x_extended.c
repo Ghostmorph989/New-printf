@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_manage_x_extended.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaoui <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: malaoui <malaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 05:46:06 by malaoui           #+#    #+#             */
-/*   Updated: 2019/11/21 06:20:15 by malaoui          ###   ########.fr       */
+/*   Updated: 2019/11/22 04:26:55 by malaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,16 @@ static int	ft_manage_mx(t_combo *foo, char *p, int len)
 	int j;
 
 	j = 0;
-	if (foo->width == 0 && foo->flag == 1 && len == 1 && ft_atoi(p) == 0)
-		return (0);
+	if (foo->width == 0 && len == 1)
+	{
+		if (foo->width == 0 && foo->precision == 0 && p[0] == '0')
+			return (0);
+		else
+		{
+			ft_putstr_fd(p, 1);
+			return (len);
+		}
+	}
 	while ((foo->width)-- > len)
 	{
 		j++;
@@ -29,7 +37,9 @@ static int	ft_manage_mx(t_combo *foo, char *p, int len)
 		j++;
 		ft_putchar_fd('0', 1);
 	}
-	if ((foo->flag == 0 || ft_atoi(p) != 0) || (foo->flag == 1))
+	if (foo->flag == 1 && ft_atoi(p) == 0)
+		ft_putchar_fd(' ', 1);
+	else
 		ft_putstr_fd(p, 1);
 	return (j + len);
 }
