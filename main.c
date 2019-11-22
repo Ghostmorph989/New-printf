@@ -6,7 +6,7 @@
 /*   By: malaoui <malaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 16:17:14 by malaoui           #+#    #+#             */
-/*   Updated: 2019/11/22 17:56:04 by malaoui          ###   ########.fr       */
+/*   Updated: 2019/11/22 18:05:15 by malaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ int		main(void)
 	// ft_printf("ft_printf : %d\n __printf : %d\n", j, i);
 
 	ft_printf("\t\tTEST 4\t\t\t\t\t\t\t\n");
-	i = printf("%0-8.5i\n", 34);
-	j = ft_printf("%0-8.5i\n", 34);
+	i = printf("<%0*i>\n", 7, -54);
+	j = ft_printf("<%0*i>\n", 7, -54);
 	ft_printf("ft_printf : %d\nprintf    : %d\n", j, i);
 
 	// ft_printf("\t\tTEST 5\t\t\t\t\t\t\t\n");

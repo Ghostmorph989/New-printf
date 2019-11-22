@@ -6,7 +6,7 @@
 /*   By: malaoui <malaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 15:19:51 by malaoui           #+#    #+#             */
-/*   Updated: 2019/11/22 18:02:18 by malaoui          ###   ########.fr       */
+/*   Updated: 2019/11/22 18:10:07 by malaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int			ft_for_else(char *s, int *pos, t_combo *foo, va_list list)
 	int j;
 
 	j = ft_calcul_width_precision(s, foo, list);
-	*pos += j + 1;
+	*pos += j + 2;
 	if (foo->width < 0)
 	{
 		foo->width *= -1;
@@ -134,8 +134,11 @@ int			ft_return(char *s, va_list list, int *pos, t_combo *foo)
 	i = 0;
 	while (s[i] == '0' && s[i] != '\0')
 			i++;
-	if (s[i--] == '-')
+	if (s[i] == '-')
+	{
+		i--;
 		return (ft_for_minus((char *)s + i, list, foo, pos));
+	}
 	else
 		return (ft_for_else((char *)s + i, pos, foo, list));
 	return (0);
