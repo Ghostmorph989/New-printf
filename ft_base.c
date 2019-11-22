@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_base.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malaoui <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: malaoui <malaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 16:16:47 by malaoui           #+#    #+#             */
-/*   Updated: 2019/11/21 07:08:14 by malaoui          ###   ########.fr       */
+/*   Updated: 2019/11/22 01:02:41 by malaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ char			*ft_hex(size_t nb)
 
 	i = 0;
 	j = ft_len(nb);
-	str = NULL;
 	if (!(str = (char *)malloc(sizeof(char) * (j + 1))))
 		return (NULL);
 	while (i < j)
