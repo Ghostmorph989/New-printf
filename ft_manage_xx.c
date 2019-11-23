@@ -6,7 +6,7 @@
 /*   By: malaoui <malaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 06:32:56 by malaoui           #+#    #+#             */
-/*   Updated: 2019/11/22 23:01:47 by malaoui          ###   ########.fr       */
+/*   Updated: 2019/11/23 17:12:09 by malaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,7 @@ static int	ft_checkxx(t_combo *foo, char *p, int len)
 
 	j = 0;
 	if (foo->width == 0 && len == 1)
-	{
-		if (foo->width == 0 && foo->precision == 0 && p[0] == '0')
-			return (0);
-		else
-		{
-			ft_putstr_fd(p, 1);
-			return (len);
-		}
-	}
+		return (ft_rem(foo, p, len));
 	while ((foo->precision)-- > len)
 	{
 		j++;

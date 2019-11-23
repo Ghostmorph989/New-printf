@@ -6,19 +6,11 @@
 /*   By: malaoui <malaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 04:31:48 by malaoui           #+#    #+#             */
-/*   Updated: 2019/11/22 22:55:22 by malaoui          ###   ########.fr       */
+/*   Updated: 2019/11/23 17:28:54 by malaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
-
-void		ft_checkprint(t_combo *foo, char *p, int *i, int j)
-{
-	if (((foo->flag) == 0) || ((ft_atoi(p) != 0) || (foo->precision != 0)))
-		ft_putstr_fd(p, 1);
-	else if (((foo->flag) == 1 || (ft_atoi(p) != 0)) && j != 0)
-		*i -= 1;
-}
 
 static int	ft_checkmdi(t_combo *foo, char *p, int len)
 {

@@ -6,7 +6,7 @@
 /*   By: malaoui <malaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 04:28:41 by malaoui           #+#    #+#             */
-/*   Updated: 2019/11/22 23:15:43 by malaoui          ###   ########.fr       */
+/*   Updated: 2019/11/23 17:30:17 by malaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 int			ft_manage_minus_p(t_combo *foo, va_list list)
 {
-	int		i;
-	int		len;
-	char	*p;
-	long long l;
+	int			i;
+	int			len;
+	char		*p;
+	long long	l;
 
 	i = 0;
 	l = va_arg(list, long long);

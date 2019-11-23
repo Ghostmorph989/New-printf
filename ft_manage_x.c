@@ -6,7 +6,7 @@
 /*   By: malaoui <malaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 04:36:23 by malaoui           #+#    #+#             */
-/*   Updated: 2019/11/22 22:45:24 by malaoui          ###   ########.fr       */
+/*   Updated: 2019/11/23 17:14:40 by malaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int			ft_manage_simple_x(va_list list)
 	char	*p;
 	int		len;
 
-	p = ft_hex(va_arg(list,long long));
+	p = ft_hex(va_arg(list, long long));
 	len = ft_strlen(p);
 	ft_putstr_fd(p, 1);
 	return (len);

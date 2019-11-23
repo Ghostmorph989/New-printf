@@ -6,7 +6,7 @@
 /*   By: malaoui <malaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 16:17:14 by malaoui           #+#    #+#             */
-/*   Updated: 2019/11/22 23:42:39 by malaoui          ###   ########.fr       */
+/*   Updated: 2019/11/23 16:43:30 by malaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ int		main(void)
 
 
 	ft_printf("\t\tTEST 3\t\t\t\t\t\t\t\n");
-	i = printf("1<%*.%>\n", 10);	
-	j = ft_printf("2<%*.%>\n", 10);
+	i = printf("<%*.%>\n", -10);	
+	j = ft_printf("<%*.%>\n", -10);
 	ft_printf("ft_printf : %d\n __printf : %d\n", j, i);
 
 	// ft_printf("\t\tTEST 4\t\t\t\t\t\t\t\n");

@@ -6,7 +6,7 @@
 /*   By: malaoui <malaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 05:46:06 by malaoui           #+#    #+#             */
-/*   Updated: 2019/11/22 22:38:01 by malaoui          ###   ########.fr       */
+/*   Updated: 2019/11/23 17:23:46 by malaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,7 @@ static int	ft_manage_mx(t_combo *foo, char *p, int len)
 
 	j = 0;
 	if (foo->width == 0 && len == 1)
-	{
-		if (foo->width == 0 && foo->precision == 0 && p[0] == '0')
-			return (0);
-		else
-		{
-			ft_putstr_fd(p, 1);
-			return (len);
-		}
-	}
+		return (ft_rem(foo, p, len));
 	while ((foo->width)-- > len)
 	{
 		j++;

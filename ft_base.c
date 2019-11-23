@@ -6,7 +6,7 @@
 /*   By: malaoui <malaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 16:16:47 by malaoui           #+#    #+#             */
-/*   Updated: 2019/11/22 01:02:41 by malaoui          ###   ########.fr       */
+/*   Updated: 2019/11/23 17:01:26 by malaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,19 @@ char			*ft_upper(char *str)
 
 char			*ft_hex(size_t nb)
 {
-	size_t		i;
-	size_t j;
-	char		*str;
+	size_t	i;
+	char	*str;
 	size_t	temp;
 
 	i = 0;
-	j = ft_len(nb);
-	if (!(str = (char *)malloc(sizeof(char) * (j + 1))))
+	if (!(str = (char *)malloc(sizeof(char) * (ft_len(nb) + 1))))
 		return (NULL);
-	while (i < j)
+	if (ft_len(nb) == 0)
+	{
+		str[0] = '0';
+		i++;
+	}
+	while (i < (size_t)ft_len(nb))
 	{
 		temp = nb % 16;
 		if (temp < 10)
@@ -77,11 +80,6 @@ char			*ft_hex(size_t nb)
 		else
 			str[i] = temp + 87;
 		nb /= 16;
-		i++;
-	}
-	if (j == 0)
-	{
-		str[0] = '0';
 		i++;
 	}
 	str[i] = '\0';

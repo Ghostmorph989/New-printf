@@ -6,7 +6,7 @@
 /*   By: malaoui <malaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 18:04:31 by malaoui           #+#    #+#             */
-/*   Updated: 2019/11/22 08:11:14 by malaoui          ###   ########.fr       */
+/*   Updated: 2019/11/23 17:29:33 by malaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,21 @@ int				ft_manage_minus_u(t_combo *foo, va_list list);
 int				ft_manage_zero_u(t_combo *foo, va_list list);
 int				ft_manage_norm_u(t_combo *foo, va_list list);
 int				ft_manage_simple_u(va_list list);
-int				ft_calcul_width_precision(const char *s, t_combo *foo, va_list list);
+int				ft_calcul_width_precision(const char *s, t_combo *foo,
+va_list list);
 void			ft_init(t_combo *foo);
+int				ft_percent_minus(char *s, int *pos, t_combo *foo, va_list list);
+int				ft_percent_digit(char *s, int *pos, t_combo *foo, va_list list);
+int				ft_percent_zero(char *s, int *pos, t_combo *foo, va_list list);
+int				ft_percent_else(char *s, int *pos, t_combo *foo, va_list list);
+int				ft_percent_return(char *s, int *pos, t_combo *foo,
+va_list list);
+int				ft_minus(char *s, va_list list, t_combo *foo, int *pos);
+int				ft_for_minus(char *s, va_list list, t_combo *foo, int *pos);
+int				ft_for_else(char *s, int *pos, t_combo *foo, va_list list);
+int				ft_for_norm(char *s, int *pos, t_combo *foo, va_list list);
+int				ft_manage(const char *s, int *pos, va_list list);
+int				ft_return(char *s, va_list list, int *pos, t_combo *foo);
+int				ft_rem(t_combo *foo, char *p, int len);
+void			ft_checkprint(t_combo *foo, char *p, int *i, int j);
 #endif

@@ -6,7 +6,7 @@
 #    By: malaoui <malaoui@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/06 17:35:50 by malaoui           #+#    #+#              #
-#    Updated: 2019/11/22 05:09:51 by malaoui          ###   ########.fr        #
+#    Updated: 2019/11/23 16:32:11 by malaoui          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,9 @@ SRC = ft_printf.c\
 	ft_flag_zero.c\
 	ft_no_flag.c\
 	ft_manage_simple.c\
-	ft_manage_value.c
+	ft_manage_value.c\
+	ft_manage_percent.c\
+	ft_for_all.c
 
 LIB = libft.a
 
