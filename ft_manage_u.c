@@ -6,7 +6,7 @@
 /*   By: malaoui <malaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 04:45:05 by malaoui           #+#    #+#             */
-/*   Updated: 2019/11/22 03:11:52 by malaoui          ###   ########.fr       */
+/*   Updated: 2019/11/23 21:55:05 by malaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,10 @@ int			ft_manage_simple_u(va_list list)
 {
 	char	*p;
 	int		len;
+	unsigned int a;
 
-	p = ft_itoa(va_arg(list, unsigned int));
+	a = va_arg(list, unsigned int);
+	p = ft_itoa(a);
 	ft_putstr_fd(p, 1);
 	len = ft_strlen(p);
 	return (len);

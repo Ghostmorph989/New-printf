@@ -6,7 +6,7 @@
 /*   By: malaoui <malaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 07:34:47 by malaoui           #+#    #+#             */
-/*   Updated: 2019/11/23 18:27:52 by malaoui          ###   ########.fr       */
+/*   Updated: 2019/11/23 21:35:56 by malaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int			ft_checknpdi(t_combo *foo, int *i, int j, char *p)
 		ft_putchar_fd(' ', 1);
 	}
 	if (p[0] == '-')
-		ft_handle_negative(foo, i, p, len);
+		ft_handle_negative(foo, i, &p, &len);
 	while ((foo->precision)-- > len)
 	{
 		ft_putchar_fd('0', 1);

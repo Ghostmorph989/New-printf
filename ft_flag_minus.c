@@ -6,7 +6,7 @@
 /*   By: malaoui <malaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 16:19:58 by malaoui           #+#    #+#             */
-/*   Updated: 2019/11/23 18:37:05 by malaoui          ###   ########.fr       */
+/*   Updated: 2019/11/23 21:38:35 by malaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 extern char g_conv;
 
-void	ft_handle_negative(t_combo *foo, int *i, char *p, int len)
+void	ft_handle_negative(t_combo *foo, int *i, char **p, int *len)
 {
 	ft_putchar_fd('-', 1);
-	p += 1;
+	*p += 1;
 	if ((foo->precision) < (foo->width))
 	{
 		(foo->precision)++;
 		*i -= 1;
 	}
 	else
-		len--;
+		*len -= 1;
 	*i += 1;
 }
 

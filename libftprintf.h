@@ -6,7 +6,7 @@
 /*   By: malaoui <malaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 18:04:31 by malaoui           #+#    #+#             */
-/*   Updated: 2019/11/23 18:36:38 by malaoui          ###   ########.fr       */
+/*   Updated: 2019/11/23 21:36:13 by malaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int				ft_return(char *s, va_list list, int *pos, t_combo *foo);
 int				ft_rem(t_combo *foo, char *p, int len);
 void			ft_checkprint(t_combo *foo, char *p, int *i, int j);
 void			ft_add_to_print(int *i, int *j);
-void			ft_handle_negative(t_combo *foo, int *i, char *p, int len);
+void			ft_handle_negative(t_combo *foo, int *i, char **p, int *len);
 int				ft_handle_nwidth(t_combo *foo, int *pos, int i, int j);
 int				ft_minus(char *s, va_list list, t_combo *foo, int *pos);
 int				ft_for_minus(char *s, va_list list, t_combo *foo, int *pos);
