@@ -6,7 +6,7 @@
 #    By: malaoui <malaoui@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/06 17:35:50 by malaoui           #+#    #+#              #
-#    Updated: 2019/11/23 16:32:11 by malaoui          ###   ########.fr        #
+#    Updated: 2019/11/23 17:41:47 by malaoui          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ SRC = ft_printf.c\
 	ft_manage_percent.c\
 	ft_for_all.c
 
-LIB = libft.a
+LIB = libft/libft.a
 
 FLAGS =  -c
 
@@ -44,12 +44,13 @@ all: $(NAME)
 
 $(NAME):
 	$(GC) $(FLAGS) $(SRC)
+	make -C libft/ re
 	ar x $(LIB)
-	ar rc $(NAME) *.o
+	ar rc $(NAME) *.o libft/*.o
 	ranlib $(NAME)
 
 clean:
-	rm -f *.o
+	rm -f *.o libft/*.o
 
 fclean: clean
 	rm -f $(NAME)

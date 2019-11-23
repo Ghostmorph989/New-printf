@@ -6,7 +6,7 @@
 /*   By: malaoui <malaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 22:47:23 by malaoui           #+#    #+#             */
-/*   Updated: 2019/11/23 17:29:18 by malaoui          ###   ########.fr       */
+/*   Updated: 2019/11/23 18:41:28 by malaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,32 @@
 
 extern char g_conv;
 
-void		ft_checkprint(t_combo *foo, char *p, int *i, int j)
+void	ft_checkprint(t_combo *foo, char *p, int *i, int j)
 {
 	if (((foo->flag) == 0) || ((ft_atoi(p) != 0) || (foo->precision != 0)))
 		ft_putstr_fd(p, 1);
 	else if (((foo->flag) == 1 || (ft_atoi(p) != 0)) && j != 0)
 		*i -= 1;
+}
+
+void	ft_add_to_print(int *i, int *j)
+{
+	ft_putchar_fd('0', 1);
+	*i += 1;
+	*j -= 1;
+}
+
+int		ft_handle_nwidth(t_combo *foo, int *pos, int i, int j)
+{
+	int f;
+
+	f = 0;
+	foo->width *= -1;
+	ft_putchar_fd('%', 1);
+	while (++f < foo->width)
+		ft_putchar_fd(' ', 1);
+	*pos += i + j + 1;
+	return (f);
 }
 
 int		ft_no_flag(t_combo *foo, va_list list)

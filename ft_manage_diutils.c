@@ -6,7 +6,7 @@
 /*   By: malaoui <malaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 07:34:47 by malaoui           #+#    #+#             */
-/*   Updated: 2019/11/22 22:57:07 by malaoui          ###   ########.fr       */
+/*   Updated: 2019/11/23 18:27:52 by malaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ static int	ft_checkndi(t_combo *foo, char *p, int len)
 	return (i + len);
 }
 
-int		ft_checknpdi(t_combo *foo, int *i, int j, char *p)
+int			ft_checknpdi(t_combo *foo, int *i, int j, char *p)
 {
 	int len;
 
@@ -106,18 +106,7 @@ int		ft_checknpdi(t_combo *foo, int *i, int j, char *p)
 		ft_putchar_fd(' ', 1);
 	}
 	if (p[0] == '-')
-	{
-		ft_putchar_fd('-', 1);
-		p += 1;
-		if ((foo->precision) < (foo->width))
-		{
-			(foo->precision)++;
-			*i -= 1;
-		}
-		else
-            len--;
-        *i += 1;
-	}
+		ft_handle_negative(foo, i, p, len);
 	while ((foo->precision)-- > len)
 	{
 		ft_putchar_fd('0', 1);
@@ -127,7 +116,7 @@ int		ft_checknpdi(t_combo *foo, int *i, int j, char *p)
 		ft_putstr_fd(p, 1);
 	else if ((foo->precision) > 0)
 		ft_putchar_fd('0', 1);
-        return (len);
+	return (len);
 }
 
 int			ft_manage_norm_di(t_combo *foo, va_list list)
@@ -154,5 +143,5 @@ int			ft_manage_norm_di(t_combo *foo, va_list list)
 		len = ft_checknpdi(foo, &i, j, p);
 		return (i + len);
 	}
-    return (0);
+	return (0);
 }

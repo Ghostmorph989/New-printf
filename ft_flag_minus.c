@@ -6,13 +6,55 @@
 /*   By: malaoui <malaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 16:19:58 by malaoui           #+#    #+#             */
-/*   Updated: 2019/11/23 16:59:12 by malaoui          ###   ########.fr       */
+/*   Updated: 2019/11/23 18:37:05 by malaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
 extern char g_conv;
+
+void	ft_handle_negative(t_combo *foo, int *i, char *p, int len)
+{
+	ft_putchar_fd('-', 1);
+	p += 1;
+	if ((foo->precision) < (foo->width))
+	{
+		(foo->precision)++;
+		*i -= 1;
+	}
+	else
+		len--;
+	*i += 1;
+}
+
+int		ft_minus(char *s, va_list list, t_combo *foo, int *pos)
+{
+	int j;
+
+	j = 0;
+	*pos += 1;
+	while ((s[*pos] == '-') && s[*pos] != '\0')
+		*pos += 1;
+	j = ft_calcul_width_precision(s + *pos, foo, list);
+	*pos += 1;
+	*pos += j;
+	if (foo->width < 0)
+		foo->width *= -1;
+	return (ft_flag_minus(foo, list));
+}
+
+int		ft_for_minus(char *s, va_list list, t_combo *foo, int *pos)
+{
+	int i;
+	int cpt;
+
+	cpt = 0;
+	i = 0;
+	cpt = ft_minus((char *)s, list, foo, &i);
+	*pos += i;
+	return (cpt);
+}
 
 int		ft_flag_minus(t_combo *foo, va_list list)
 {

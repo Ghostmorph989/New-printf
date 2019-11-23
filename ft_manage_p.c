@@ -6,7 +6,7 @@
 /*   By: malaoui <malaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 04:28:41 by malaoui           #+#    #+#             */
-/*   Updated: 2019/11/23 17:30:17 by malaoui          ###   ########.fr       */
+/*   Updated: 2019/11/23 18:17:03 by malaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ int			ft_manage_zero_p(t_combo *foo, va_list list)
 
 int			ft_manage_norm_p(t_combo *foo, va_list list)
 {
-	int		i;
-	char	*p;
-	long long l;
+	int			i;
+	char		*p;
+	long long	l;
 
 	l = va_arg(list, long long);
 	i = 0;
@@ -74,11 +74,8 @@ int			ft_manage_norm_p(t_combo *foo, va_list list)
 	else
 		p = ft_strjoin("0x", ft_hex(l));
 	i = ft_strlen(p);
-	while (i < (foo->width))
-	{
+	while (i++ < (foo->width))
 		ft_putchar_fd(' ', 1);
-		i++;
-	}
 	ft_putstr_fd(p, 1);
 	free(p);
 	return (i);

@@ -6,7 +6,7 @@
 /*   By: malaoui <malaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 04:31:48 by malaoui           #+#    #+#             */
-/*   Updated: 2019/11/23 17:28:54 by malaoui          ###   ########.fr       */
+/*   Updated: 2019/11/23 18:22:45 by malaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ static int	ft_checkmdi(t_combo *foo, char *p, int len)
 		p = p + 1;
 	}
 	ft_checkprint(foo, p, &i, j);
-	if ((foo->width) != 0 && (foo->precision) == 0 
-			&& foo->flag == 1 && ft_atoi(p) == 0)
+	if ((foo->width) != 0 && (foo->precision) == 0 &&
+foo->flag == 1 && ft_atoi(p) == 0)
 	{
 		ft_putchar_fd(' ', 1);
 		i++;
@@ -40,7 +40,7 @@ static int	ft_checkmdi(t_combo *foo, char *p, int len)
 	return (i + len);
 }
 
-void	ft_checkm(t_combo *foo, char **p, int *len, int *i)
+void		ft_checkm(t_combo *foo, char **p, int *len, int *i)
 {
 	int j;
 
@@ -63,18 +63,13 @@ static int	ft_checkmpdi(t_combo *foo, char *p, int len)
 	int i;
 
 	i = 0;
-	j = 0;
 	j = (foo->width);
 	if ((foo->precision) < len)
 		(foo->precision)++;
 	if (p[0] == '-')
 		ft_checkm(foo, &p, &len, &i);
 	while ((foo->precision)-- > len)
-	{
-		ft_putchar_fd('0', 1);
-		i++;
-		j--;
-	}
+		ft_add_to_print(&i, &j);
 	ft_checkprint(foo, p, &i, j);
 	if ((foo->width) != 0 && (foo->flag) == 1 && ft_atoi(p) == 0)
 	{
